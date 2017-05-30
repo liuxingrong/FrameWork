@@ -1,0 +1,21 @@
+package com.team.service;
+
+import com.team.dto.Example;
+
+import java.util.List;
+
+/**
+ * Created by fantasy on 17-5-28.
+ */
+
+public interface ExampleService {
+    int insert(Example example);
+
+    int delete(Integer id);
+
+    int update(Example example);
+
+    Example findById(Integer id);
+
+    List<Example> getList(int currentPage, int pageSize);
+}
