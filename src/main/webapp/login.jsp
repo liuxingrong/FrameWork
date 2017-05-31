@@ -6,6 +6,7 @@
 	<meta charset="UTF-8">
 </head>
 <body>
+	<h1>hello world</h1>
 	<div>
 		<form action="login.do" method="post">
 			<table>
