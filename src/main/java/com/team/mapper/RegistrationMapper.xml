@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mapper.RegistrationMapper">
+  <resultMap id="BaseResultMap" type="com.team.dto.Registration">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="rname" jdbcType="VARCHAR" property="rname" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="dept" jdbcType="INTEGER" property="dept" />
+    <result column="format" jdbcType="VARCHAR" property="format" />
+    <result column="material" jdbcType="VARCHAR" property="material" />
+    <result column="purchase" jdbcType="INTEGER" property="purchase" />
+    <result column="sale" jdbcType="INTEGER" property="sale" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="supplier" jdbcType="INTEGER" property="supplier" />
+    <result column="bar_code" jdbcType="VARCHAR" property="barCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, number, rname, unit, dept, format, material, purchase, sale, type, supplier, 
+    bar_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from registration
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from registration
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.team.dto.Registration">
+    insert into registration (id, number, rname, 
+      unit, dept, format, 
+      material, purchase, sale, 
+      type, supplier, bar_code
+      )
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{rname,jdbcType=VARCHAR}, 
+      #{unit,jdbcType=VARCHAR}, #{dept,jdbcType=INTEGER}, #{format,jdbcType=VARCHAR}, 
+      #{material,jdbcType=VARCHAR}, #{purchase,jdbcType=INTEGER}, #{sale,jdbcType=INTEGER}, 
+      #{type,jdbcType=INTEGER}, #{supplier,jdbcType=INTEGER}, #{barCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.dto.Registration">
+    insert into registration
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="rname != null">
+        rname,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="dept != null">
+        dept,
+      </if>
+      <if test="format != null">
+        format,
+      </if>
+      <if test="material != null">
+        material,
+      </if>
+      <if test="purchase != null">
+        purchase,
+      </if>
+      <if test="sale != null">
+        sale,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="supplier != null">
+        supplier,
+      </if>
+      <if test="barCode != null">
+        bar_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="rname != null">
+        #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null">
+        #{dept,jdbcType=INTEGER},
+      </if>
+      <if test="format != null">
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null">
+        #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="purchase != null">
+        #{purchase,jdbcType=INTEGER},
+      </if>
+      <if test="sale != null">
+        #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="supplier != null">
+        #{supplier,jdbcType=INTEGER},
+      </if>
+      <if test="barCode != null">
+        #{barCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.dto.Registration">
+    update registration
+    <set>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="rname != null">
+        rname = #{rname,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null">
+        dept = #{dept,jdbcType=INTEGER},
+      </if>
+      <if test="format != null">
+        format = #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="material != null">
+        material = #{material,jdbcType=VARCHAR},
+      </if>
+      <if test="purchase != null">
+        purchase = #{purchase,jdbcType=INTEGER},
+      </if>
+      <if test="sale != null">
+        sale = #{sale,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="supplier != null">
+        supplier = #{supplier,jdbcType=INTEGER},
+      </if>
+      <if test="barCode != null">
+        bar_code = #{barCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.dto.Registration">
+    update registration
+    set number = #{number,jdbcType=VARCHAR},
+      rname = #{rname,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      dept = #{dept,jdbcType=INTEGER},
+      format = #{format,jdbcType=VARCHAR},
+      material = #{material,jdbcType=VARCHAR},
+      purchase = #{purchase,jdbcType=INTEGER},
+      sale = #{sale,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      supplier = #{supplier,jdbcType=INTEGER},
+      bar_code = #{barCode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
