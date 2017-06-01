@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mapper.BusinessMapper">
+  <resultMap id="BaseResultMap" type="com.team.dto.Business">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="telephone" jdbcType="INTEGER" property="telephone" />
+    <result column="dead_id" jdbcType="INTEGER" property="deadId" />
+    <result column="dead_name" jdbcType="VARCHAR" property="deadName" />
+    <result column="pick_up_time" jdbcType="DATE" property="pickUpTime" />
+    <result column="pick_up_address" jdbcType="VARCHAR" property="pickUpAddress" />
+    <result column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="driver_id" jdbcType="INTEGER" property="driverId" />
+    <result column="refrigerated_id" jdbcType="INTEGER" property="refrigeratedId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="farewell_hall_id" jdbcType="INTEGER" property="farewellHallId" />
+    <result column="cremation_furnace_id" jdbcType="INTEGER" property="cremationFurnaceId" />
+    <result column="charge" jdbcType="INTEGER" property="charge" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="flapper" jdbcType="VARCHAR" property="flapper" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, number, telephone, dead_id, dead_name, pick_up_time, pick_up_address, car_id, 
+    driver_id, refrigerated_id, user_id, farewell_hall_id, cremation_furnace_id, charge, 
+    note, type, create_time, flapper
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from business
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from business
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.team.dto.Business">
+    insert into business (id, number, telephone, 
+      dead_id, dead_name, pick_up_time, 
+      pick_up_address, car_id, driver_id, 
+      refrigerated_id, user_id, farewell_hall_id, 
+      cremation_furnace_id, charge, note, 
+      type, create_time, flapper
+      )
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{telephone,jdbcType=INTEGER}, 
+      #{deadId,jdbcType=INTEGER}, #{deadName,jdbcType=VARCHAR}, #{pickUpTime,jdbcType=DATE}, 
+      #{pickUpAddress,jdbcType=VARCHAR}, #{carId,jdbcType=INTEGER}, #{driverId,jdbcType=INTEGER}, 
+      #{refrigeratedId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{farewellHallId,jdbcType=INTEGER}, 
+      #{cremationFurnaceId,jdbcType=INTEGER}, #{charge,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, #{flapper,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.dto.Business">
+    insert into business
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="deadId != null">
+        dead_id,
+      </if>
+      <if test="deadName != null">
+        dead_name,
+      </if>
+      <if test="pickUpTime != null">
+        pick_up_time,
+      </if>
+      <if test="pickUpAddress != null">
+        pick_up_address,
+      </if>
+      <if test="carId != null">
+        car_id,
+      </if>
+      <if test="driverId != null">
+        driver_id,
+      </if>
+      <if test="refrigeratedId != null">
+        refrigerated_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="farewellHallId != null">
+        farewell_hall_id,
+      </if>
+      <if test="cremationFurnaceId != null">
+        cremation_furnace_id,
+      </if>
+      <if test="charge != null">
+        charge,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="flapper != null">
+        flapper,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=INTEGER},
+      </if>
+      <if test="deadId != null">
+        #{deadId,jdbcType=INTEGER},
+      </if>
+      <if test="deadName != null">
+        #{deadName,jdbcType=VARCHAR},
+      </if>
+      <if test="pickUpTime != null">
+        #{pickUpTime,jdbcType=DATE},
+      </if>
+      <if test="pickUpAddress != null">
+        #{pickUpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="carId != null">
+        #{carId,jdbcType=INTEGER},
+      </if>
+      <if test="driverId != null">
+        #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="refrigeratedId != null">
+        #{refrigeratedId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="farewellHallId != null">
+        #{farewellHallId,jdbcType=INTEGER},
+      </if>
+      <if test="cremationFurnaceId != null">
+        #{cremationFurnaceId,jdbcType=INTEGER},
+      </if>
+      <if test="charge != null">
+        #{charge,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="flapper != null">
+        #{flapper,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.dto.Business">
+    update business
+    <set>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=INTEGER},
+      </if>
+      <if test="deadId != null">
+        dead_id = #{deadId,jdbcType=INTEGER},
+      </if>
+      <if test="deadName != null">
+        dead_name = #{deadName,jdbcType=VARCHAR},
+      </if>
+      <if test="pickUpTime != null">
+        pick_up_time = #{pickUpTime,jdbcType=DATE},
+      </if>
+      <if test="pickUpAddress != null">
+        pick_up_address = #{pickUpAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="carId != null">
+        car_id = #{carId,jdbcType=INTEGER},
+      </if>
+      <if test="driverId != null">
+        driver_id = #{driverId,jdbcType=INTEGER},
+      </if>
+      <if test="refrigeratedId != null">
+        refrigerated_id = #{refrigeratedId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="farewellHallId != null">
+        farewell_hall_id = #{farewellHallId,jdbcType=INTEGER},
+      </if>
+      <if test="cremationFurnaceId != null">
+        cremation_furnace_id = #{cremationFurnaceId,jdbcType=INTEGER},
+      </if>
+      <if test="charge != null">
+        charge = #{charge,jdbcType=INTEGER},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="flapper != null">
+        flapper = #{flapper,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.dto.Business">
+    update business
+    set number = #{number,jdbcType=INTEGER},
+      telephone = #{telephone,jdbcType=INTEGER},
+      dead_id = #{deadId,jdbcType=INTEGER},
+      dead_name = #{deadName,jdbcType=VARCHAR},
+      pick_up_time = #{pickUpTime,jdbcType=DATE},
+      pick_up_address = #{pickUpAddress,jdbcType=VARCHAR},
+      car_id = #{carId,jdbcType=INTEGER},
+      driver_id = #{driverId,jdbcType=INTEGER},
+      refrigerated_id = #{refrigeratedId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      farewell_hall_id = #{farewellHallId,jdbcType=INTEGER},
+      cremation_furnace_id = #{cremationFurnaceId,jdbcType=INTEGER},
+      charge = #{charge,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=DATE},
+      flapper = #{flapper,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

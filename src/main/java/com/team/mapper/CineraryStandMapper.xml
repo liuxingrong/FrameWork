@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mapper.CineraryStandMapper">
+  <resultMap id="BaseResultMap" type="com.team.dto.CineraryStand">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="row" jdbcType="VARCHAR" property="row" />
+    <result column="stand_case" jdbcType="VARCHAR" property="standCase" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, row, stand_case, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cinerary_stand
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cinerary_stand
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.team.dto.CineraryStand">
+    insert into cinerary_stand (id, row, stand_case, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{row,jdbcType=VARCHAR}, #{standCase,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.dto.CineraryStand">
+    insert into cinerary_stand
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="row != null">
+        row,
+      </if>
+      <if test="standCase != null">
+        stand_case,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="row != null">
+        #{row,jdbcType=VARCHAR},
+      </if>
+      <if test="standCase != null">
+        #{standCase,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.dto.CineraryStand">
+    update cinerary_stand
+    <set>
+      <if test="row != null">
+        row = #{row,jdbcType=VARCHAR},
+      </if>
+      <if test="standCase != null">
+        stand_case = #{standCase,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.dto.CineraryStand">
+    update cinerary_stand
+    set row = #{row,jdbcType=VARCHAR},
+      stand_case = #{standCase,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

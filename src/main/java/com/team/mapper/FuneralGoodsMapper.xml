@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.mapper.FuneralGoodsMapper">
+  <resultMap id="BaseResultMap" type="com.team.dto.FuneralGoods">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cost_name" jdbcType="VARCHAR" property="costName" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+    <result column="price" jdbcType="INTEGER" property="price" />
+    <result column="is_cost" jdbcType="INTEGER" property="isCost" />
+    <result column="cost_type" jdbcType="INTEGER" property="costType" />
+    <result column="organization" jdbcType="VARCHAR" property="organization" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cost_name, unit, price, is_cost, cost_type, organization, type, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from funeral_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from funeral_goods
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.team.dto.FuneralGoods">
+    insert into funeral_goods (id, cost_name, unit, 
+      price, is_cost, cost_type, 
+      organization, type, status
+      )
+    values (#{id,jdbcType=INTEGER}, #{costName,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{price,jdbcType=INTEGER}, #{isCost,jdbcType=INTEGER}, #{costType,jdbcType=INTEGER}, 
+      #{organization,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.team.dto.FuneralGoods">
+    insert into funeral_goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="costName != null">
+        cost_name,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="isCost != null">
+        is_cost,
+      </if>
+      <if test="costType != null">
+        cost_type,
+      </if>
+      <if test="organization != null">
+        organization,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="costName != null">
+        #{costName,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=INTEGER},
+      </if>
+      <if test="isCost != null">
+        #{isCost,jdbcType=INTEGER},
+      </if>
+      <if test="costType != null">
+        #{costType,jdbcType=INTEGER},
+      </if>
+      <if test="organization != null">
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.team.dto.FuneralGoods">
+    update funeral_goods
+    <set>
+      <if test="costName != null">
+        cost_name = #{costName,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=INTEGER},
+      </if>
+      <if test="isCost != null">
+        is_cost = #{isCost,jdbcType=INTEGER},
+      </if>
+      <if test="costType != null">
+        cost_type = #{costType,jdbcType=INTEGER},
+      </if>
+      <if test="organization != null">
+        organization = #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.team.dto.FuneralGoods">
+    update funeral_goods
+    set cost_name = #{costName,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      price = #{price,jdbcType=INTEGER},
+      is_cost = #{isCost,jdbcType=INTEGER},
+      cost_type = #{costType,jdbcType=INTEGER},
+      organization = #{organization,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
