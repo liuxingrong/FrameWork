@@ -4,12 +4,12 @@
 <head>
 <meta charset="utf-8" />
 <title>添加学习资源</title>
-<script src="/learningResources/static/common/header.js"></script>
-<script src="/learningResources/static/common/utils.js"></script>
+<script src="/frame/static/common/header.js"></script>
+<script src="/frame/static/common/utils.js"></script>
 <script src="/learningResources/static/common/validateUser.js"></script>
-<link href="/learningResources/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+<link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
 </head>
-<body onload='load()' style='display:none;'>
+<body>
 <article class="page-container">
 	<form class="form form-horizontal" id="form-study-link-add">
 		<div class="row cl">
@@ -22,11 +22,11 @@
 			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>性别：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<div class="radio-box">
-					<input type="radio" name="sex" value="1" checked>
+					<input name="sex" type="radio" id="sex-1" checked>
 					<label for="sex-1">男</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" name="sex" value="2">
+					<input type="radio" id="sex-2" name="sex">
 					<label for="sex-2">女</label>
 				</div>
 			</div>
@@ -73,10 +73,11 @@
 
 
 <!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/messages_zh.js"></script>
-<script type="text/javascript" src="/learningResources/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+
 <script type="text/javascript">
 $(function(){
 	$('.skin-minimal input').iCheck({
