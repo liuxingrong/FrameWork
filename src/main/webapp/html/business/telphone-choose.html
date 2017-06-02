@@ -1,0 +1,85 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>选择下一步</title>
+<script src="/learningResources/static/common/header.js"></script>
+<script src="/learningResources/static/common/utils.js"></script>
+<script src="/learningResources/static/common/validateUser.js"></script>
+<link href="/learningResources/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+</head>
+<body onload='load()' style='display:none;'>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-study-link-add">
+		<div id = "car" style='display:none;'>
+			<div class="row cl">
+				<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>选择车辆：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
+				</div>
+			</div>
+		</div>
+	</form>
+</article>
+</body>
+</html>
+
+
+<!--请在下方写此页面业务相关的脚本--> 
+<script type="text/javascript">
+$(function(){
+	type = getUrlParam('type');
+	if(type ==3){
+		$('#car').show();
+	}
+	
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-study-link-add").validate({
+		rules:{
+			name:{
+				required:true,
+			},
+			description:{
+				required:true,
+			},
+			link:{
+				required:true,
+			},
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			 setTimeout(function(){
+                var userId = user.id;
+                add(userId);  
+            }, 200);
+		}
+	});
+});
+
+function add(userId) {
+	// 添加资源
+	var params = {
+		userId: userId,
+		linkName: $('#name').val(),
+		linkDescription: $('#description').val(),
+		linkUrl: $('#link').val(),
+	}
+	handleAjax('studylink.do?method=add', params).done(function(result){
+		if(result.status){
+			layer.msg('添加成功!', {icon:1,time:1000}, function(){
+				refresh();
+			});
+		}
+	}).fail(function(xhr, error){
+		alert('error');
+	});
+}
+</script> 
