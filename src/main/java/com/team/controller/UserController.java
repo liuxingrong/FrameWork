@@ -2,6 +2,7 @@ package com.team.controller;
 
 import com.team.dto.User;
 import com.team.service.UserService;
+import com.team.util.JsonMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,13 @@ public class UserController {
         return userService.getList(currentPage, pageSize);
     }
 
-
+    @RequestMapping("/validateUser")
+    @ResponseBody
+    public JsonMessage validateUser(){
+        JsonMessage jsonMessage = new JsonMessage();
+        User user = userService.findById(1);
+        jsonMessage.setData(user);
+        jsonMessage.setStatus(true);
+        return jsonMessage;
+    }
 }
