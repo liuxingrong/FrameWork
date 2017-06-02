@@ -116,21 +116,13 @@ $(function(){
 });
 
 function add(){
-	var type = getUrlParam('type');
-	// 1.判断该username是否可用，若不存在则可用
-	    var user= {
-			username: $('#username').val(),
-		}
-	    handleAjax('userManage.do?method=isRegister',user).done(function(result){
-		if (result.status) {
-			// 添加用户
 			var params = {
 				agentName: $('#agentName').val(),
 				age: $('#age').val(),
 				gender: $('input:radio[name="gender"]:checked').val(),
 				idCard: $('#idCard').val(),
 				telephone: $('#telephone').val(),
-				adress: $('#adress').val(),
+				adress: $('#adress').val()
 			}
 			handleAjax('userManage.do?method=addUser', params).done(function(result){
 				if (result.status) {
@@ -141,8 +133,7 @@ function add(){
 			}).fail(function(xhr, error){
 				alert('error')
 		});	
-		}
-	    });		
+
 }
 </script> 
 

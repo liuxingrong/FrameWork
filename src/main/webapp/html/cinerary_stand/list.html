@@ -4,9 +4,9 @@
 <meta charset="utf-8" />
 <meta charset="utf-8">
 <title>骨灰架管理</title>
-<script src="/learningResources/static/common/header.js"></script>
-<script src="/learningResources/static/common/utils.js"></script>
-<script src="/learningResources/static/common/validateUser.js"></script>
+<script src="/frame/static/common/header.js"></script>
+<script src="/frame/static/common/utils.js"></script>
+<script src="/frame/static/common/validateUser.js"></script>
 </head>
 <body onload='load()' style='display:none;'>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 基础数据维护 <span class="c-gray en">&gt;</span><span id='head'>骨灰架管理</span><a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
@@ -26,19 +26,17 @@
 	</div>
 </div>
 <!--请在下方写此页面业务相关的脚本-->
-<script type="text/javascript" src="/learningResources/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/frame/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/frame/lib/laypage/1.2/laypage.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('.table-sort').dataTable({
-		"aaSorting": [[ 2, "desc" ]],//默认第几个排序
+		"aaSorting": [[ 1, "desc" ]],//默认第几个排序
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
-		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
 		  {"orderable":false,"aTargets":[4]}// 制定列不参与排序
 		]
 	});
-
 	loadList();
 	
 });
@@ -74,7 +72,7 @@ function test_add(){
 }
 /*试卷-编辑*/
 function test_edit(id){
-	layer_show('编辑骨灰架', 'modify.html?id=' + id, '600', '400');
+	layer_show('编辑骨灰架', 'edit.html?id=' + id, '600', '400');
 }
 /*试卷-删除*/
 function test_del(id){

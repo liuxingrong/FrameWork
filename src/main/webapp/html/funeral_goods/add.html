@@ -4,67 +4,67 @@
 <head>
 <meta charset="utf-8" />
 <title>添加丧葬品</title>
-<script src="/learningResources/static/common/header.js"></script>
-<script src="/learningResources/static/common/utils.js"></script>
-<script src="/learningResources/static/common/validateUser.js"></script>
+<script src="/frame/static/common/header.js"></script>
+<script src="/frame/static/common/utils.js"></script>
+<script src="/frame/static/common/validateUser.js"></script>
 </head>
-<body onload='load()' style='display:none;'>
+<body>
 <article class="page-container">
 	<form action="" method="post" class="form form-horizontal" id="form-user-add">
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>费用名：</label>
+		<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>费用名：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
+			<input type="text" class="input-text" value="" placeholder="" id="costName" name="costName">
 		</div>
 		</div>
 
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>单位：</label>
+		<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>单位：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
+			<input type="text" class="input-text" value="" placeholder="" id="unit" name="unit">
 		</div>
 		</div>
 
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>单位费用额：</label>
+		<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>单位费用额：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
+			<input type="text" class="input-text" value="" placeholder="" id="price" name="price">
 		</div>
 		</div>
 
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">是否默认收费：</label>
+		<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>是否默认收费：</label>
 		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="model" size="1">
-				<option value="0">是</option>
-				<option value="1">否</option>
+			<select class="select" name="isCost" size="1">
+				<option value="1">是</option>
+				<option value="0">否</option>
 			</select>
 			</span> 
 		</div>
 		</div>
 
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">收费类型：</label>
+		<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>收费类型：</label>
 		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="model" size="1">
-				<option value="0">是</option>
-				<option value="1">否</option>
+			<select class="select" name="costType" size="1">
+				<option value="1">服务收费</option>
+				<option value="2">其它</option>
 			</select>
 			</span> 
 		</div>
 		</div>
 
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>费用产生部门：</label>
+		<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>费用产生部门：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="flapper" name="flapper">
+			<input type="text" class="input-text" value="" placeholder="" id="organization" name="organization">
 		</div>
 		</div>
 
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">所属类目：</label>
+		<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>所属类目：</label>
 		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="model" size="1">
+			<select class="select" name="type" size="1">
 				<option value="0">骨灰盒</option>
 				<option value="1">殡仪费</option>
 				<option value="2">其它</option>
@@ -82,42 +82,37 @@
 </article>
 
 <!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 
 $(function(){
-	var type = getUrlParam('type');
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
-	$("#form-user-add").validate({
+
+	$("#add").validate({
 		rules:{
-			username:{
-				required:true,
-				minlength:4,
-				maxlength:10
+			costName:{
+				required:true
 			},
-            realname:{
-				required:true,
-				minlength:2,
-				maxlength:10
+			unit:{
+				required:true
 			},
-			sex:{
-				required:true,
+			price:{
+				required:true
 			},
-			tel:{
-				required:true,
-				isMobile:true,
+			isCost:{
+				required:true
 			},
-			email:{
-				required:true,
-				email:true,
+			costType:{
+				required:true
 			},
+			organization:{
+				required:true
+			},
+			type:{
+				required:true
+			}
+
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -129,21 +124,14 @@ $(function(){
 });
 
 function add(){
-	var type = getUrlParam('type');
-	// 1.判断该username是否可用，若不存在则可用
-	    var user= {
-			username: $('#username').val(),
-		}
-	    handleAjax('userManage.do?method=isRegister',user).done(function(result){
-		if (result.status) {
-			// 添加用户
 			var params = {
-				username: $('#username').val(),
-				realname: $('#realname').val(),
-				sex: $('input:radio[name="sex"]:checked').val(),
-				tel: $('#tel').val(),
-				email: $('#email').val(),
-				type:type,
+				costName: $('#costName').val(),
+				unit: $('#unit').val(),
+				price: $('#price').val(),
+				isCost: $('#isCost').val(),
+				costType: $('#costType').val(),
+				organization: $('#organization').val(),
+				type: $('#type').val()
 			}
 			handleAjax('userManage.do?method=addUser', params).done(function(result){
 				if (result.status) {
@@ -154,8 +142,7 @@ function add(){
 			}).fail(function(xhr, error){
 				alert('error')
 		});	
-		}
-	    });		
+
 }
 </script> 
 
