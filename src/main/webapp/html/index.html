@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <title>index</title>
-<script src="/learningResources/static/common/header.js"></script>
-<script src="/learningResources/static/common/utils.js"></script>
-<script src="/learningResources/static/common/validateUser.js"></script>
+<script src="/frame/static/common/header.js"></script>
+<script src="/frame/static/common/utils.js"></script>
+<script src="/frame/static/common/validateUser.js"></script>
 </head>
-<body onload='load()' style='display:none;'>
+<body>
 <header class="navbar-wrapper">
 	<div class="navbar navbar-fixed-top">
 		<div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="#">learning resources</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a> 
@@ -24,7 +24,7 @@
 						<a href="#" class="dropDown_A"><span id='username'></span> <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
 							<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-							<li><a href="#" onclick="logout()">退出</a></li>
+							<li><a href="/frame/logout.do">退出</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -123,7 +123,7 @@
 </body>
 </html>
 
-<script type="text/javascript" src="/learningResources/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
 <script type="text/javascript">
 $(function(){
 	// 根据不同角色加载不同菜单
