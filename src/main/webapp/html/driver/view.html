@@ -1,0 +1,82 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>修改驾驶员</title>
+    <script src="/frame/static/common/header.js"></script>
+    <script src="/frame/static/common/utils.js"></script>
+    <script src="/frame/static/common/validateUser.js"></script>
+    <link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="edit">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>姓名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="dname" name="dname">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>年龄：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="age" name="age">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>驾驶证证件号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="licence" name="licence">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>发证日期：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="IssuingDate" class="input-text Wdate" style="width:180px;">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>联系电话：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="phone" name="phone">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+
+    $(function(){
+        var id = getUrlParam('id');
+        loadPage(id);
+        function loadPage(id) {
+            handleAjax('driver/find?id='+ id).done(function(data) {
+                $('#number').val(data.number),
+                    $('#dname').val(data.dname),
+                    $('#age').val(data.age),
+                    $('#licence').val(data.licence),
+                    $('#phone').val(data.phone),
+                    $("#IssuingDate").val(getDate(data.IssuingDate))
+            }).fail(function(xhr, error){
+                alert('error')
+            })
+        }
+        $('input').attr("disabled","disabled");
+        $('select').attr("disabled","disabled");
+        $('radio').attr("disabled","disabled");
+    })
+
+</script>
+
+</body>
+</html>

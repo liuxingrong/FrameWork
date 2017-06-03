@@ -88,7 +88,8 @@
 <script type="text/javascript">
 
 	$(function(){
-
+        var id = getUrlParam('id');
+        loadPage(id);
 		$("#edit").validate({
 			rules:{
 				costName:{
@@ -118,13 +119,35 @@
 			focusCleanup:true,
 			success:"valid",
 			submitHandler:function(form){
-				edit();
+				edit(id);
 			}
 		});
 	});
 
-	function edit(){
+    function loadPage(id) {
+        $.ajax({
+            type: 'post',
+            url: '/frame/funeralGoods/find?id='+id,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                $('#costName').val(result.costName);
+                $('#unit').val(result.unit);
+                $('#price').val(result.price);
+                $('#isCost').val(result.isCost);
+                $('#costType').val(result.costType);
+                $('#organization').val(result.organization);
+                $('#type').val(result.type);
+            },
+            error: function () {
+                alert('error')
+            }
+        }) ;
+    }
+
+	function edit(id){
 		var params = {
+		    id:id,
 			costName: $('#costName').val(),
 			unit: $('#unit').val(),
 			price: $('#price').val(),
@@ -133,16 +156,23 @@
 			organization: $('#organization').val(),
 			type: $('#type').val()
 		}
-		handleAjax('userManage.do?method=editUser', params).done(function(result){
-			if (result.status) {
-				layer.msg('修改成功!', {icon:1,time:1000}, function(){
-					refresh();
-				});
-			}
-		}).fail(function(xhr, error){
-			alert('error')
-		});
-
+        $.ajax({
+            type: 'post',
+            url: '/frame/funeralGoods/update',
+            dataType: 'json',
+            contentType: 'application/json',
+            data:JSON.stringify(params),
+            success: function(result) {
+                if(result==1){
+                    layer.msg('修改成功!', {icon:1,time:1000}, function(){
+                        refresh();
+                    });
+                }
+            },
+            error: function() {
+                alert('error')
+            }
+        });
 	}
 </script>
 

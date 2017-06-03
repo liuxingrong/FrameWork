@@ -5,8 +5,8 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="fname" jdbcType="VARCHAR" property="fname" />
-    <result column="start_time" jdbcType="TIME" property="startTime" />
-    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="start_time" jdbcType="DATE" property="startTime" />
+    <result column="end_time" jdbcType="DATE" property="endTime" />
     <result column="format" jdbcType="INTEGER" property="format" />
     <result column="price" jdbcType="INTEGER" property="price" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -29,7 +29,7 @@
       start_time, end_time, format, 
       price, status)
     values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{fname,jdbcType=VARCHAR}, 
-      #{startTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}, #{format,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=DATE}, #{endTime,jdbcType=DATE}, #{format,jdbcType=INTEGER},
       #{price,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.team.dto.FarewellHall">
@@ -71,10 +71,10 @@
         #{fname,jdbcType=VARCHAR},
       </if>
       <if test="startTime != null">
-        #{startTime,jdbcType=TIME},
+        #{startTime,jdbcType=DATE},
       </if>
       <if test="endTime != null">
-        #{endTime,jdbcType=TIME},
+        #{endTime,jdbcType=DATE},
       </if>
       <if test="format != null">
         #{format,jdbcType=INTEGER},
@@ -97,10 +97,10 @@
         fname = #{fname,jdbcType=VARCHAR},
       </if>
       <if test="startTime != null">
-        start_time = #{startTime,jdbcType=TIME},
+        start_time = #{startTime,jdbcType=DATE},
       </if>
       <if test="endTime != null">
-        end_time = #{endTime,jdbcType=TIME},
+        end_time = #{endTime,jdbcType=DATE},
       </if>
       <if test="format != null">
         format = #{format,jdbcType=INTEGER},
@@ -118,8 +118,8 @@
     update farewell_hall
     set number = #{number,jdbcType=VARCHAR},
       fname = #{fname,jdbcType=VARCHAR},
-      start_time = #{startTime,jdbcType=TIME},
-      end_time = #{endTime,jdbcType=TIME},
+      start_time = #{startTime,jdbcType=DATE},
+      end_time = #{endTime,jdbcType=DATE},
       format = #{format,jdbcType=INTEGER},
       price = #{price,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER}

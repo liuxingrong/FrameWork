@@ -6,8 +6,8 @@
     <result column="number" jdbcType="VARCHAR" property="number" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="byname" jdbcType="VARCHAR" property="byname" />
-    <result column="start_time" jdbcType="TIME" property="startTime" />
-    <result column="end_time" jdbcType="TIME" property="endTime" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
     <result column="standard" jdbcType="INTEGER" property="standard" />
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
@@ -29,7 +29,7 @@
       byname, start_time, end_time, 
       standard, status)
     values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
-      #{byname,jdbcType=VARCHAR}, #{startTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}, 
+      #{byname,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP},
       #{standard,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.team.dto.MourningHall">
@@ -74,10 +74,10 @@
         #{byname,jdbcType=VARCHAR},
       </if>
       <if test="startTime != null">
-        #{startTime,jdbcType=TIME},
+        #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="endTime != null">
-        #{endTime,jdbcType=TIME},
+        #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="standard != null">
         #{standard,jdbcType=INTEGER},
@@ -100,10 +100,10 @@
         byname = #{byname,jdbcType=VARCHAR},
       </if>
       <if test="startTime != null">
-        start_time = #{startTime,jdbcType=TIME},
+        start_time = #{startTime,jdbcType=TIMESTAMP},
       </if>
       <if test="endTime != null">
-        end_time = #{endTime,jdbcType=TIME},
+        end_time = #{endTime,jdbcType=TIMESTAMP},
       </if>
       <if test="standard != null">
         standard = #{standard,jdbcType=INTEGER},
@@ -119,8 +119,8 @@
     set number = #{number,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
       byname = #{byname,jdbcType=VARCHAR},
-      start_time = #{startTime,jdbcType=TIME},
-      end_time = #{endTime,jdbcType=TIME},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
       standard = #{standard,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

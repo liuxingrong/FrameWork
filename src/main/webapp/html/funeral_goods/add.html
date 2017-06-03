@@ -138,6 +138,7 @@ function add(){
 				type: $('#type').val(),
 				status:10
 			}
+			alert(JSON.stringify(params));
 	$.ajax({
 		type: 'post',
 		url: '/frame/funeralGoods/insert',

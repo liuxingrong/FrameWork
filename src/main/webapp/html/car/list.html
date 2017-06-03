@@ -64,7 +64,8 @@ function loadList() {
 					'<td class="td-manage">' +
 						'<a title="编辑" href="javascript:;" onclick="edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
 						'<a title="删除" href="javascript:;" onclick="del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
-					'</td>' +
+             		    '<a title="查看" href="javascript:;" onclick="view('+data[i].id +')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe709;</i></a>'+
+                '</td>' +
 				'</tr>';
 		};
 		$('tbody').html(str);
@@ -79,6 +80,9 @@ function add(){
 /*车辆-编辑*/
 function edit(id){
 	layer_show('编辑车辆', 'edit.html?id=' + id, '600', '400');
+}
+function view(id) {
+    layer_show('查看', 'view.html?id=' + id, '600', '400');
 }
 /*车辆-删除*/
 function del(id){

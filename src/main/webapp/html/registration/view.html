@@ -1,0 +1,135 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>物品登记修改</title>
+    <script src="/frame/static/common/header.js"></script>
+    <script src="/frame/static/common/utils.js"></script>
+    <script src="/frame/static/common/validateUser.js">
+    </script><link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="add">
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>编号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="number" name="number">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="rname" name="rname">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>单位：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="unit" name="unit">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>规格：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="format" name="format">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>材质：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="material" name="material">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>进货价格：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="purchase" name="purchase">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>出售价格：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="sale" name="sale">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>物品类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width:150px;">
+				<select class="select" name="type" id="type" size="1">
+					<option value="0">花圈</option>
+					<option value="1">骨灰盒</option>
+					<option value="2">其他</option>
+				</select>
+			    </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>供应商：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width:150px;">
+				<select class="select" name="type" id="supplier" size="1">
+					<option value="0">个体户</option>
+					<option value="1">上海</option>
+				</select>
+			    </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>条码标签：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="barCode" name="barCode">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var id = getUrlParam('id');
+        loadPage(id);
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $('input').attr("disabled","disabled");
+        $('select').attr("disabled","disabled");
+        $('radio').attr("disabled","disabled");
+    });
+
+    function loadPage(id) {
+        $.ajax({
+            type: 'post',
+            url: '/frame/registration/find?id='+id,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                $('#number').val(result.number),
+                    $('#rname').val(result.rname),
+                    $('#unit').val(result.unit),
+                    $('#format').val(result.format),
+                    $('#material').val(result.material),
+                    $('#purchase').val(result.purchase),
+                    $('#sale').val(result.sale),
+                    $('#type').val(result.type),
+                    $('#supplier').val(result.supplier),
+                    $('#barCode').val(result.barCode)
+            },
+            error: function () {
+                alert('error')
+            }
+        }) ;
+    }
+</script>
+
+</body>
+</html>

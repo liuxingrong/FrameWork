@@ -1,68 +1,89 @@
+<!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf-8" />
-<title>修改车辆</title>
-<script src="/frame/static/common/header.js"></script>
-<script src="/frame/static/common/utils.js"></script>
-<script src="/frame/static/common/validateUser.js"></script>
-	<link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+	<meta charset="utf-8" />
+	<title>物品登记修改</title>
+	<script src="/frame/static/common/header.js"></script>
+	<script src="/frame/static/common/utils.js"></script>
+	<script src="/frame/static/common/validateUser.js">
+	</script><link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <article class="page-container">
 	<form action="" method="post" class="form form-horizontal" id="add">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆编号：</label>
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>编号：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
 			</div>
 		</div>
-
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆型号：</label>
-			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="model" size="1">
-				<option value="1">自送</option>
-				<option value="2">殡葬车</option>
-			</select>
-			</span>
-			</div>
-		</div>
-
-		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆种类：</label>
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>名称：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-		   <span class="select-box" style="width:150px;">
-			<select class="select" name="type" size="1">
-				<option value="1">馆外殡葬车</option>
-				<option value="2">馆内殡葬车</option>
-			</select>
-			</span>
+				<input type="text" class="input-text" value="" placeholder="" id="rname" name="rname">
 			</div>
 		</div>
-
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆号牌：</label>
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>单位：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="flapper" name="flapper">
+				<input type="text" class="input-text" value="" placeholder="" id="unit" name="unit">
 			</div>
 		</div>
-
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>默认驾驶员：</label>
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>规格：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="driver" name="driver">
+				<input type="text" class="input-text" value="" placeholder="" id="format" name="format">
 			</div>
 		</div>
-
-
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-2" style="text-align: right;">购买日期：</label>
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>材质：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'datemin\')}' })" id="purchase" class="input-text Wdate" style="width:180px;">
+				<input type="text" class="input-text" value="" placeholder="" id="material" name="material">
 			</div>
 		</div>
-
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>进货价格：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="purchase" name="purchase">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>出售价格：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="sale" name="sale">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>物品类型：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width:150px;">
+				<select class="select" name="type" id="type" size="1">
+					<option value="0">花圈</option>
+					<option value="1">骨灰盒</option>
+					<option value="2">其他</option>
+				</select>
+			    </span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>供应商：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width:150px;">
+				<select class="select" name="type" id="supplier" size="1">
+					<option value="0">个体户</option>
+					<option value="1">上海</option>
+				</select>
+			    </span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>条码标签：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="barCode" name="barCode">
+			</div>
+		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-3">
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -71,78 +92,108 @@
 	</form>
 </article>
 
-<!--请在下方写此页面业务相关的脚本--> 
+<!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript">
+    $(function(){
+        var id = getUrlParam('id');
+        loadPage(id);
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $("#add").validate({
+            rules:{
+                number:{
+                    required:true,
+                },
+                rname:{
+                    required:true
+                },
+                unit:{
+                    required:true
+                },
+                format:{
+                    required:true
+                },
+                purchase:{
+                    required:true,
+                    number:true
+                },
+                sale:{
+                    required:true,
+                    number:true
+                }
+            },
+            onkeyup:false,
+            focusCleanup:true,
+            success:"valid",
+            submitHandler:function(form){
+                edit(id);
+            }
+        });
+    });
 
-$(function(){
-	var type = getUrlParam('type');
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
-	$("#edit").validate({
-		rules:{
-			username:{
-				required:true,
-				minlength:4,
-				maxlength:10
-			},
-            realname:{
-				required:true,
-				minlength:2,
-				maxlength:10
-			},
-			sex:{
-				required:true
-			},
-			tel:{
-				required:true,
-				isMobile:true
-			},
-			email:{
-				required:true,
-				email:true
-			}
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			edit();
-		}
-	});
-});
-
-function edit(){
-	    handleAjax('',user).done(function(result){
-		if (result.status) {
-			// 添加用户
-			var params = {
-				number: $('#number').val(),
-				model: $('input:radio[name="model"]:checked').val(),
-				type: $('input:radio[name="type"]:checked').val(),
-				flapper: $('#flapper').val(),
-				driver: $('#driver').val(),
-				purchase:$("#purchase").val()
-			}
-			handleAjax('', params).done(function(result){
-				if (result.status) {
-					    layer.msg('添加成功!', {icon:1,time:1000}, function(){
-						refresh();
-					});
-				}
-			}).fail(function(xhr, error){
-				alert('error')
-		});	
-		}
-	    });		
-}
-</script> 
+    function loadPage(id) {
+        $.ajax({
+            type: 'post',
+            url: '/frame/registration/find?id='+id,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                $('#number').val(result.number),
+                $('#rname').val(result.rname),
+                $('#unit').val(result.unit),
+				$('#format').val(result.format),
+                $('#material').val(result.material),
+                $('#purchase').val(result.purchase),
+                $('#sale').val(result.sale),
+                $('#type').val(result.type),
+                $('#supplier').val(result.supplier),
+                $('#barCode').val(result.barCode)
+            },
+            error: function () {
+                alert('error')
+            }
+        }) ;
+    }
+    function edit(id){
+        var params = {
+            id:id,
+            number: $('#number').val(),
+            rname: $('#rname').val(),
+            unit: $('#unit').val(),
+            format: $('#format').val(),
+            material: $('#material').val(),
+            purchase: $('#purchase').val(),
+            sale: $('#sale').val(),
+            type: $('#type').val(),
+            supplier: $('#supplier').val(),
+            barCode: $('#barCode').val()
+        }
+        $.ajax({
+            type: 'post',
+            url: '/frame/registration/update',
+            dataType: 'json',
+            contentType: 'application/json',
+            data:JSON.stringify(params),
+            success: function(result) {
+                if(result==1){
+                    layer.msg('修改成功!', {icon:1,time:1000}, function(){
+                        refresh();
+                    });
+                }
+            },
+            error: function() {
+                alert('error')
+            }
+        })
+    }
+</script>
 
 </body>
 </html>
