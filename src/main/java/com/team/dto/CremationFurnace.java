@@ -72,4 +72,17 @@ public class CremationFurnace {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "CremationFurnace{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", byname='" + byname + '\'' +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", type=" + type +
+                ", status=" + status +
+                '}';
+    }
 }

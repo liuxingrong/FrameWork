@@ -1,27 +1,28 @@
+<!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf-8" />
-<title>修改车辆</title>
-<script src="/frame/static/common/header.js"></script>
-<script src="/frame/static/common/utils.js"></script>
-<script src="/frame/static/common/validateUser.js"></script>
+	<meta charset="utf-8" />
+	<title>修改车辆</title>
+	<script src="/frame/static/common/header.js"></script>
+	<script src="/frame/static/common/utils.js"></script>
+	<script src="/frame/static/common/validateUser.js"></script>
 	<link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body >
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="add">
+	<form action="" method="post" class="form form-horizontal" id="edit">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆编号：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
+				<input type="text" class="input-text" placeholder="" id="number" name="number">
 			</div>
 		</div>
 
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆型号：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="model" size="1">
+			<select class="select" name="model" id="model" size="1">
 				<option value="1">自送</option>
 				<option value="2">殡葬车</option>
 			</select>
@@ -33,7 +34,7 @@
 			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆种类：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 		   <span class="select-box" style="width:150px;">
-			<select class="select" name="type" size="1">
+			<select class="select" name="type" id="type" size="1">
 				<option value="1">馆外殡葬车</option>
 				<option value="2">馆内殡葬车</option>
 			</select>
@@ -55,11 +56,10 @@
 			</div>
 		</div>
 
-
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2" style="text-align: right;">购买日期：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'datemin\')}' })" id="purchase" class="input-text Wdate" style="width:180px;">
+				<input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="purchase" class="input-text Wdate" style="width:180px;">
 			</div>
 		</div>
 
@@ -71,78 +71,94 @@
 	</form>
 </article>
 
-<!--请在下方写此页面业务相关的脚本--> 
+<!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript">
-
-$(function(){
-	var type = getUrlParam('type');
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
-	$("#edit").validate({
-		rules:{
-			username:{
-				required:true,
-				minlength:4,
-				maxlength:10
+	var id = getUrlParam('id');
+	loadPage(id);
+	function loadPage(id) {
+		handleAjax('car/find?id='+ id).done(function(data) {
+			 $('#number').val(data.number),
+			 $('#model').val(data.model),
+			 $('#type').val(data.type),
+			 $('#flapper').val(data.flapper),
+			 $('#driver').val(data.driver),
+			 $("#purchase").val(data.purchase)
+		}).fail(function(xhr, error){
+			alert('error')
+		})
+	}
+	$(function(){
+		$("#edit").validate({
+			rules:{
+				number:{
+					required:true,
+					rangelength:[5,20]
+				},
+				model:{
+					required:true
+				},
+				type:{
+					required:true
+				},
+				flapper:{
+					required:true,
+					rangelength:[5,20]
+				},
+				driverflapper:{
+					required:true,
+					rangelength:[2,5]
+				},
+				purchase:{
+					required:true
+				}
 			},
-            realname:{
-				required:true,
-				minlength:2,
-				maxlength:10
-			},
-			sex:{
-				required:true
-			},
-			tel:{
-				required:true,
-				isMobile:true
-			},
-			email:{
-				required:true,
-				email:true
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				edit();
 			}
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			edit();
+		});
+	});
+
+	function edit(id){
+		// 修改车辆
+		var params = {
+			id:id,
+			number: $('#number').val(),
+			model: $('#model').val(),
+			type: $('#type').val(),
+			flapper: $('#flapper').val(),
+			driver: $('#driver').val(),
+			purchase:new Date($("#purchase").val())
 		}
-	});
-});
-
-function edit(){
-	    handleAjax('',user).done(function(result){
-		if (result.status) {
-			// 添加用户
-			var params = {
-				number: $('#number').val(),
-				model: $('input:radio[name="model"]:checked').val(),
-				type: $('input:radio[name="type"]:checked').val(),
-				flapper: $('#flapper').val(),
-				driver: $('#driver').val(),
-				purchase:$("#purchase").val()
-			}
-			handleAjax('', params).done(function(result){
-				if (result.status) {
-					    layer.msg('添加成功!', {icon:1,time:1000}, function(){
+		$.ajax({
+			type: 'post',
+			url: '/frame/car/update',
+			dataType: 'json',
+			contentType: 'application/json',
+			data:JSON.stringify(params),
+			success: function(result) {
+				if(result==1){
+					layer.msg('修改成功!', {icon:1,time:1000}, function(){
+						refresh();
+					});
+				}else{
+					layer.msg('修改失败!', {icon:1,time:1000}, function(){
 						refresh();
 					});
 				}
-			}).fail(function(xhr, error){
+			},
+			error: function() {
 				alert('error')
-		});	
-		}
-	    });		
-}
-</script> 
+			}
+		});
+	}
+</script>
 
 </body>
 </html>

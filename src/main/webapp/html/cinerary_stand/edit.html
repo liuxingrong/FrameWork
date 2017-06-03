@@ -1,19 +1,27 @@
+<!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>添加安置处</title>
+	<title>添加骨灰架</title>
 	<script src="/frame/static/common/header.js"></script>
 	<script src="/frame/static/common/utils.js"></script>
 	<script src="/frame/static/common/validateUser.js"></script>
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="add">
+	<form action="" method="post" class="form form-horizontal" id="edit">
 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>骨灰安置处：</label>
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>排号：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="aname" name="aname">
+				<input type="text" class="input-text" value="" placeholder="" id="row" name="row">
+			</div>
+		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>格号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="standCase" name="standCase">
 			</div>
 		</div>
 
@@ -30,31 +38,49 @@
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
+	var id = getUrlParam('id');
+	loadPage(id);
+	function loadPage(id) {
+		handleAjax('cineraryStand/find?id='+ id).done(function(data) {
+			$('#number').val(data.number),
+					$('#row').val(data.row),
+					$('#standCase').val(data.standCase)
+		}).fail(function(xhr, error){
+			alert('error')
+		})
+	}
 	$(function(){
-		$("#add").validate({
+
+		$("#edit").validate({
 			rules:{
-				aname:{
+				row:{
 					required:true,
-					minlength:2,
-					maxlength:20
+					digits:true
+				},
+				standCase:{
+					required:true,
+					digits:true
 				}
 			},
 			onkeyup:false,
 			focusCleanup:true,
 			success:"valid",
 			submitHandler:function(form){
-				add();
+				edit(id);
 			}
 		});
 	});
 
-	function add(){
+	function edit(id){
 		var params = {
-			aname: $('#aname').val()
+			id:id,
+			row: $('#row').val(),
+			standCase: $('#standCase').val(),
+			status:10
 		}
 		$.ajax({
 			type: 'post',
-			url: '/frame/ashesSettlement/insert',
+			url: '/frame/cineraryStand/update',
 			dataType: 'json',
 			contentType: 'application/json',
 			data:JSON.stringify(params),
@@ -73,7 +99,6 @@
 				alert('error')
 			}
 		});
-
 	}
 </script>
 

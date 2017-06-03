@@ -10,8 +10,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-user-add">
-		
+	<form action="" method="post" class="form form-horizontal" id="add">
 		<div class="row cl">
 			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>悼词：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -28,9 +27,9 @@
 </article>
 
 <!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 
 $(function(){
@@ -39,8 +38,7 @@ $(function(){
 		rules:{
 			content:{
 				required:true,
-				minlength:4,
-				maxlength:50
+				rangelength:[5,20]
 			}
 		},
 		onkeyup:false,
@@ -53,18 +51,30 @@ $(function(){
 });
 
 function add(){
-			var params = {
-				content: $('#content').val()
+	var params = {
+		content: $('#content').val()
+	}
+	$.ajax({
+		type: 'post',
+		url: '/frame/eulogy/insert',
+		dataType: 'json',
+		contentType: 'application/json',
+		data:JSON.stringify(params),
+		success: function(result) {
+			if(result==1){
+				layer.msg('添加成功!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}else{
+				layer.msg('添加失败!', {icon:1,time:1000}, function(){
+					refresh();
+				});
 			}
-			handleAjax('userManage.do?method=addUser', params).done(function(result){
-				if (result.status) {
-					    layer.msg('添加成功!', {icon:1,time:1000}, function(){
-						refresh();
-					});
-				}
-			}).fail(function(xhr, error){
-				alert('error')
-		});
+		},
+		error: function() {
+			alert('error')
+		}
+	});
 }
 </script> 
 
