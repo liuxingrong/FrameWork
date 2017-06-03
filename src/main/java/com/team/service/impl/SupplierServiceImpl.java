@@ -59,7 +59,6 @@ public class SupplierServiceImpl implements SupplierService{
 
     public List<Supplier> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return supplierMapper.selectAll();
-        return null;
+        return supplierMapper.selectAll();
     }
 }

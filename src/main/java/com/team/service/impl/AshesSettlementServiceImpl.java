@@ -59,7 +59,6 @@ public class AshesSettlementServiceImpl implements AshesSettlementService{
 
     public List<AshesSettlement> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return ashesSettlementMapper.selectAll();
-        return null;
+        return ashesSettlementMapper.selectAll();
     }
 }

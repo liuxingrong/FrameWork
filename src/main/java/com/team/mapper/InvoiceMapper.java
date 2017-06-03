@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.Invoice;
 
+import java.util.List;
+
 public interface InvoiceMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface InvoiceMapper {
     int updateByPrimaryKeySelective(Invoice record);
 
     int updateByPrimaryKey(Invoice record);
+
+    List<Invoice> selectAll();
 }

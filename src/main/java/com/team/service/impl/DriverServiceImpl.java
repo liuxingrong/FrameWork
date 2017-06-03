@@ -59,7 +59,6 @@ public class DriverServiceImpl implements DriverService{
 
     public List<Driver> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return driverMapper.selectAll();
-        return null;
+        return driverMapper.selectAll();
     }
 }

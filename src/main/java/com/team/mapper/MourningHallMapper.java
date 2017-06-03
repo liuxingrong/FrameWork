@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.MourningHall;
 
+import java.util.List;
+
 public interface MourningHallMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface MourningHallMapper {
     int updateByPrimaryKeySelective(MourningHall record);
 
     int updateByPrimaryKey(MourningHall record);
+
+    List<MourningHall> selectAll();
 }

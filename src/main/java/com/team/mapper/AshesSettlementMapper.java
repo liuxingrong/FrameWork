@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.AshesSettlement;
 
+import java.util.List;
+
 public interface AshesSettlementMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface AshesSettlementMapper {
     int updateByPrimaryKeySelective(AshesSettlement record);
 
     int updateByPrimaryKey(AshesSettlement record);
+
+    List<AshesSettlement> selectAll();
 }

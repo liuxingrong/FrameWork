@@ -59,7 +59,6 @@ public class InvoiceServiceImpl implements InvoiceService{
 
     public List<Invoice> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return invoiceMapper.selectAll();
-        return null;
+        return invoiceMapper.selectAll();
     }
 }

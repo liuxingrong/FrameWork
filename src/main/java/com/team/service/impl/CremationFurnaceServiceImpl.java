@@ -59,7 +59,6 @@ public class CremationFurnaceServiceImpl implements CremationFurnaceService{
 
     public List<CremationFurnace> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return cremationFurnaceMapper.selectAll();
-        return null;
+        return cremationFurnaceMapper.selectAll();
     }
 }

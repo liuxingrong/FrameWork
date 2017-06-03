@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.CremationFurnace;
 
+import java.util.List;
+
 public interface CremationFurnaceMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface CremationFurnaceMapper {
     int updateByPrimaryKeySelective(CremationFurnace record);
 
     int updateByPrimaryKey(CremationFurnace record);
+
+    List<CremationFurnace> selectAll();
 }

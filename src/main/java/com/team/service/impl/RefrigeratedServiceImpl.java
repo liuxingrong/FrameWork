@@ -59,7 +59,6 @@ public class RefrigeratedServiceImpl implements RefrigeratedService{
 
     public List<Refrigerated> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return refrigeratedMapper.selectAll();
-        return null;
+        return refrigeratedMapper.selectAll();
     }
 }

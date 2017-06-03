@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,6 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     User selectByUsername(String username);
+
+    List<User> selectAll();
 }

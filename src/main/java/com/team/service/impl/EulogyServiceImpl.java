@@ -59,7 +59,6 @@ public class EulogyServiceImpl implements EulogyService{
 
     public List<Eulogy> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return eulogyMapper.selectAll();
-        return null;
+        return eulogyMapper.selectAll();
     }
 }
