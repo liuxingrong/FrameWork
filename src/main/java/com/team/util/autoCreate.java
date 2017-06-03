@@ -11,9 +11,7 @@ public class autoCreate {
             mourning_hall,refrigerated,registration,supplier,user
         */
         // create dto, mapper, xml
-        String[] tableNames = {"ashes_settlement", "business", "car", "cinerary_stand", "cremation_furnace",
-                "dead", "driver", "eulogy", "farewell_hall", "funeral_goods", "invoice", "mourning_hall",
-                "refrigerated", "registration", "supplier", "user"};
+        String[] tableNames = {"ashes_registration"};
         RunMyBatisGenerator.run(tableNames);
 
         // create controller, service, serviceImpl

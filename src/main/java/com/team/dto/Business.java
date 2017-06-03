@@ -7,7 +7,7 @@ public class Business {
 
     private Integer number;
 
-    private Integer telephone;
+    private String telephone;
 
     private Integer deadId;
 
@@ -55,11 +55,11 @@ public class Business {
         this.number = number;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

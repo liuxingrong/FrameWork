@@ -49,7 +49,6 @@
 var type = null;
 $(function(){
 	type = getUrlParam('type');
-	alert(type);
     if(type==1){
         $("#addTel").show();
 	}
@@ -61,14 +60,14 @@ $(function(){
 		  {"orderable":false,"aTargets":[6]}// 制定列不参与排序
 		]
 	});
-//	loadList();
+	loadList();
 });
 /*资源-列表*/
 function loadList() {
-	handleAjax('business/list?currentPage=0&pageSize=100').done(function(result){
+	handleAjax('business/list?currentPage=0&type ='+type).done(function(result){
 		var data = result;
 		if (data == null) {
-			/* $('tbody').html('暂无数据'); */
+			$('tbody').html('暂无数据');
 			return;
 		}
 		var str = ''
@@ -86,14 +85,14 @@ function loadList() {
 					'</td>' +
 				'</tr>';
 		};
-		/* $('tbody').html(str); */
+		$('tbody').html(str);
 	}).fail(function(xhr, error){
 		alert('error');
 	});
 }
 /*资源-添加*/
 function telphone_add(){
-	layer_show('预约登记', 'telphone-add.html?type=' + type, '600', '530');
+	layer_show('预约登记', 'telphone-add.html?type=' + type, '600', '560');
 }	
 function submit(){
 	var title = "选择车辆";

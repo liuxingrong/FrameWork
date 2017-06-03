@@ -28,6 +28,7 @@ public class BusinessController {
     @RequestMapping("/insert")
     @ResponseBody
     public int insert(@RequestBody Business business) {
+        System.out.println( business);
         return businessService.insert(business);
     }
 
@@ -52,7 +53,8 @@ public class BusinessController {
     @RequestMapping("/list")
     @ResponseBody
     public List<Business> list(@RequestParam("currentPage")int currentPage, @RequestParam("pageSize")int pageSize){
-        return businessService.getList(currentPage, pageSize);
+        List<Business> list = businessService.getList(currentPage, pageSize);
+        return list;
     }
 
 
