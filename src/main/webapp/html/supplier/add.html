@@ -52,13 +52,16 @@ $(function(){
 	$("#add").validate({
 		rules:{
 			unit:{
-				required:true
+				required:true,
+				rangelength:[2,20]
 			},
 			linkman:{
-				required:true
+				required:true,
+				rangelength:[2,5]
 			},
 			phone:{
-				required:true
+				required:true,
+				isMobile:true
 			}
 
 		},
@@ -77,15 +80,27 @@ function add(){
 				linkman: $('#linkman').val(),
 				phone: $('#phone').val()
 			}
-			handleAjax('userManage.do?method=addUser', params).done(function(result){
-				if (result.status) {
-					    layer.msg('添加成功!', {icon:1,time:1000}, function(){
-						refresh();
-					});
-				}
-			}).fail(function(xhr, error){
-				alert('error')
-		});
+	$.ajax({
+		type: 'post',
+		url: '/frame/supplier/insert',
+		dataType: 'json',
+		contentType: 'application/json',
+		data:JSON.stringify(params),
+		success: function(result) {
+			if(result==1){
+				layer.msg('添加成功!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}else{
+				layer.msg('添加失败!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}
+		},
+		error: function() {
+			alert('error')
+		}
+	});
 }
 </script> 
 

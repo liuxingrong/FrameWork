@@ -1,24 +1,22 @@
-<!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 <head>
-<meta charset="utf-8" />
-<title>修改安置处</title>
-<script src="/frame/static/common/header.js"></script>
-<script src="/frame/static/common/utils.js"></script>
-<script src="/frame/static/common/validateUser.js"></script>
+	<meta charset="utf-8" />
+	<title>修改安置处</title>
+	<script src="/frame/static/common/header.js"></script>
+	<script src="/frame/static/common/utils.js"></script>
+	<script src="/frame/static/common/validateUser.js"></script>
 </head>
-<body onload='load()' style='display:none;'>
+<body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="add">
-	
+	<form action="" method="post" class="form form-horizontal" id="edit">
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>骨灰安置处：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="aname" name="aname">
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="aname" name="aname">
+			</div>
 		</div>
-		</div>
-		
+
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-3">
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -27,47 +25,68 @@
 	</form>
 </article>
 
-<!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
+	var id = getUrlParam('id');
+	loadPage(id);
+	function loadPage(id) {
+		handleAjax('ashesSettlement/find?id=' + id).done(function(data) {
+			$('#aname').val(data.aname);
+		}).fail(function(xhr, error){
+			alert('error')
+		})
+	}
 
-$(function(){
-
-	$("#add").validate({
-		rules:{
-			aname:{
-				required:true,
-				minlength:2,
-				maxlength:20
+	$(function(){
+		$("#edit").validate({
+			rules:{
+				aname:{
+					required:true,
+					minlength:2,
+					maxlength:20
+				}
+			},
+			onkeyup:false,
+			focusCleanup:true,
+			success:"valid",
+			submitHandler:function(form){
+				edit(id);
 			}
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			edit();
-		}
+		});
 	});
-});
 
-function edit(){
-			var params = {
-				aname: $('#aname').val(),
-
-			}
-			handleAjax('userManage.do?method=addUser', params).done(function(result){
-				if (result.status) {
-					    layer.msg('修改成功!', {icon:1,time:1000}, function(){
+	function edit(id){
+		var params = {
+			id:id,
+			aname: $('#aname').val()
+		}
+		$.ajax({
+			type: 'post',
+			url: '/frame/ashesSettlement/update',
+			dataType: 'json',
+			contentType: 'application/json',
+			data:JSON.stringify(params),
+			success: function(result) {
+				if(result==1){
+					layer.msg('修改成功!', {icon:1,time:1000}, function(){
+						refresh();
+					});
+				}else{
+					layer.msg('修改失败!', {icon:1,time:1000}, function(){
 						refresh();
 					});
 				}
-			}).fail(function(xhr, error){
+			},
+			error: function() {
 				alert('error')
+			}
 		});
-}
-</script> 
+
+	}
+</script>
 
 </body>
 </html>
