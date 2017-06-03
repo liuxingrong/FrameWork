@@ -59,7 +59,6 @@ public class MourningHallServiceImpl implements MourningHallService{
 
     public List<MourningHall> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return mourningHallMapper.selectAll();
-        return null;
+        return mourningHallMapper.selectAll();
     }
 }

@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.Eulogy;
 
+import java.util.List;
+
 public interface EulogyMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface EulogyMapper {
     int updateByPrimaryKeySelective(Eulogy record);
 
     int updateByPrimaryKey(Eulogy record);
+
+    List<Eulogy> selectAll();
 }

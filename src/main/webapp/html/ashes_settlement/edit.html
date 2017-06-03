@@ -4,16 +4,16 @@
 <head>
 <meta charset="utf-8" />
 <title>修改安置处</title>
-<script src="/learningResources/static/common/header.js"></script>
-<script src="/learningResources/static/common/utils.js"></script>
-<script src="/learningResources/static/common/validateUser.js"></script>
+<script src="/frame/static/common/header.js"></script>
+<script src="/frame/static/common/utils.js"></script>
+<script src="/frame/static/common/validateUser.js"></script>
 </head>
 <body onload='load()' style='display:none;'>
 <article class="page-container">
 	<form action="" method="post" class="form form-horizontal" id="add">
 	
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>骨灰安置处：</label>
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>骨灰安置处：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="" placeholder="" id="aname" name="aname">
 		</div>
@@ -28,9 +28,9 @@
 </article>
 
 <!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 
 $(function(){
@@ -41,8 +41,7 @@ $(function(){
 				required:true,
 				minlength:2,
 				maxlength:20
-			},
-     
+			}
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -54,25 +53,19 @@ $(function(){
 });
 
 function edit(){
-	
-	    handleAjax('',user).done(function(result){
-		if (result.status) {
-			// 添加安置处
 			var params = {
 				aname: $('#aname').val(),
 
 			}
 			handleAjax('userManage.do?method=addUser', params).done(function(result){
 				if (result.status) {
-					    layer.msg('添加成功!', {icon:1,time:1000}, function(){
+					    layer.msg('修改成功!', {icon:1,time:1000}, function(){
 						refresh();
 					});
 				}
 			}).fail(function(xhr, error){
 				alert('error')
-		});	
-		}
-	    });		
+		});
 }
 </script> 
 

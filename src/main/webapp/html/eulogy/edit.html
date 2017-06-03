@@ -4,9 +4,9 @@
 <head>
 <meta charset="utf-8" />
 <title>修改悼词</title>
-<script src="/learningResources/static/common/header.js"></script>
-<script src="/learningResources/static/common/utils.js"></script>
-<script src="/learningResources/static/common/validateUser.js"></script>
+<script src="/frame/static/common/header.js"></script>
+<script src="/frame/static/common/utils.js"></script>
+<script src="/frame/static/common/validateUser.js"></script>
 </head>
 <body onload='load()' style='display:none;'>
 <article class="page-container">
@@ -15,7 +15,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>悼词：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="driver" name="driver">
+				<input type="text" class="input-text" value="" placeholder="" id="content" name="content">
 			</div>
 		</div>
 		
@@ -28,42 +28,20 @@
 </article>
 
 <!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 
 $(function(){
-	var type = getUrlParam('type');
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
 	
-	$("#form-user-add").validate({
+	$("#edit").validate({
 		rules:{
-			username:{
+			content:{
 				required:true,
 				minlength:4,
-				maxlength:10
-			},
-            realname:{
-				required:true,
-				minlength:2,
-				maxlength:10
-			},
-			sex:{
-				required:true,
-			},
-			tel:{
-				required:true,
-				isMobile:true,
-			},
-			email:{
-				required:true,
-				email:true,
-			},
+				maxlength:100
+			}
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -75,33 +53,18 @@ $(function(){
 });
 
 function add(){
-	var type = getUrlParam('type');
-	// 1.判断该username是否可用，若不存在则可用
-	    var user= {
-			username: $('#username').val(),
-		}
-	    handleAjax('userManage.do?method=isRegister',user).done(function(result){
-		if (result.status) {
-			// 添加用户
 			var params = {
-				username: $('#username').val(),
-				realname: $('#realname').val(),
-				sex: $('input:radio[name="sex"]:checked').val(),
-				tel: $('#tel').val(),
-				email: $('#email').val(),
-				type:type,
+				content: $('#content').val()
 			}
 			handleAjax('userManage.do?method=addUser', params).done(function(result){
 				if (result.status) {
-					    layer.msg('添加成功!', {icon:1,time:1000}, function(){
+					    layer.msg('修改成功!', {icon:1,time:1000}, function(){
 						refresh();
 					});
 				}
 			}).fail(function(xhr, error){
 				alert('error')
-		});	
-		}
-	    });		
+		});
 }
 </script> 
 

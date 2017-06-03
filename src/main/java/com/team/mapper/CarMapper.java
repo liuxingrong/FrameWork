@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.Car;
 
+import java.util.List;
+
 public interface CarMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface CarMapper {
     int updateByPrimaryKeySelective(Car record);
 
     int updateByPrimaryKey(Car record);
+
+    List<Car> selectAll();
 }

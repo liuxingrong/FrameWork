@@ -59,8 +59,7 @@ public class UserServiceImpl implements UserService{
 
     public List<User> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return userMapper.selectAll();
-        return null;
+        return userMapper.selectAll();
     }
 
     public User findByUsername(String username) {

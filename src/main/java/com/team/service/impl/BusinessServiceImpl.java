@@ -59,7 +59,6 @@ public class BusinessServiceImpl implements BusinessService{
 
     public List<Business> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return businessMapper.selectAll();
-        return null;
+        return businessMapper.selectAll();
     }
 }

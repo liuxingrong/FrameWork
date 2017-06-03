@@ -3,104 +3,45 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>添加物品</title>
-<script src="/learningResources/static/common/header.js"></script>
-<script src="/learningResources/static/common/utils.js"></script>
-<script src="/learningResources/static/common/validateUser.js"></script>
+<title>添加冷藏室</title>
+<script src="/frame/static/common/header.js"></script>
+<script src="/frame/static/common/utils.js"></script>
+<script src="/frame/static/common/validateUser.js"></script>
 </head>
-<body onload='load()' style='display:none;'>
+<body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-user-add">
+	<form action="" method="post" class="form form-horizontal" id="add">
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>商品编号：</label>
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>商品编号：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
 		</div>
 		</div>
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>商品名称：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
-		</div>
-		</div>
-
-		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">商品单位：</label>
-		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="model" size="1">
-				<option value="0">自送</option>
-				<option value="1">殡葬车</option>
-			</select>
-			</span> 
-		</div>
-		</div>
-
-		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>进货价格：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
-		</div>
-		</div>
-
-		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>出售价格：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
-		</div>
-		</div>
-
-		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>供应商：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
-		</div>
-		</div>
-
-        <div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">所属部门：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-		   <span class="select-box" style="width:150px;">
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>类型：</label>
+			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
 			<select class="select" name="type" size="1">
-				<option value="0">馆外殡葬车</option>
-				<option value="1">馆内殡葬车</option>
+				<option value="1">独立冰柜</option>
+				<option value="2">普通冰柜</option>
 			</select>
-			</span> 
-		</div>
-		</div>
-		
-		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>规格：</label>
-		<div class="formControls col-xs-8 col-sm-9">
-			<input type="text" class="input-text" value="" placeholder="" id="flapper" name="flapper">
-		</div>
+			</span>
+		    </div>
 		</div>
 
 		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>材质：</label>
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>别名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="driver" name="driver">
+				<input type="text" class="input-text" value="" placeholder="" id="byname" name="byname">
 			</div>
 		</div>
 
-		 <div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3">物品类型：</label>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>价格：</label>
 		<div class="formControls col-xs-8 col-sm-9">
-		   <span class="select-box" style="width:150px;">
-			<select class="select" name="type" size="1">
-				<option value="0">馆外殡葬车</option>
-				<option value="1">馆内殡葬车</option>
-			</select>
-			</span> 
+			<input type="text" class="input-text" value="" placeholder="" id="price" name="price">
 		</div>
 		</div>
 
-		<div class="row cl">
-			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>条码标签：</label>
-			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="driver" name="driver">
-			</div>
-		</div>
-		
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-3">
 				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
@@ -110,9 +51,9 @@
 </article>
 
 <!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 
 $(function(){
@@ -123,29 +64,20 @@ $(function(){
 		increaseArea: '20%'
 	});
 	
-	$("#form-user-add").validate({
+	$("#add").validate({
 		rules:{
-			username:{
-				required:true,
-				minlength:4,
-				maxlength:10
+			number:{
+				required:true
 			},
-            realname:{
-				required:true,
-				minlength:2,
-				maxlength:10
-			},
-			sex:{
+            type:{
 				required:true,
 			},
-			tel:{
-				required:true,
-				isMobile:true,
+			byname:{
+				required:true
 			},
-			email:{
-				required:true,
-				email:true,
-			},
+			price:{
+				required:true
+			}
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -157,21 +89,11 @@ $(function(){
 });
 
 function add(){
-	var type = getUrlParam('type');
-	// 1.判断该username是否可用，若不存在则可用
-	    var user= {
-			username: $('#username').val(),
-		}
-	    handleAjax('userManage.do?method=isRegister',user).done(function(result){
-		if (result.status) {
-			// 添加用户
 			var params = {
-				username: $('#username').val(),
-				realname: $('#realname').val(),
-				sex: $('input:radio[name="sex"]:checked').val(),
-				tel: $('#tel').val(),
-				email: $('#email').val(),
-				type:type,
+				number: $('#number').val(),
+				type: $('#number').val(),
+				byname: $('#byname').val(),
+				price: $('#price').val()
 			}
 			handleAjax('userManage.do?method=addUser', params).done(function(result){
 				if (result.status) {
@@ -182,8 +104,7 @@ function add(){
 			}).fail(function(xhr, error){
 				alert('error')
 		});	
-		}
-	    });		
+
 }
 </script> 
 
