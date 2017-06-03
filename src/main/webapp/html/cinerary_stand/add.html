@@ -4,22 +4,22 @@
 <head>
 <meta charset="utf-8" />
 <title>添加骨灰架</title>
-<script src="/learningResources/static/common/header.js"></script>
-<script src="/learningResources/static/common/utils.js"></script>
-<script src="/learningResources/static/common/validateUser.js"></script>
+<script src="/frame/static/common/header.js"></script>
+<script src="/frame/static/common/utils.js"></script>
+<script src="/frame/static/common/validateUser.js"></script>
 </head>
-<body onload='load()' style='display:none;'>
+<body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-user-add">
+	<form action="" method="post" class="form form-horizontal" id="add">
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>排号：</label>
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>排号：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="" placeholder="" id="row" name="row">
 		</div>
 		</div>
 
 		<div class="row cl">
-		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>格号：</label>
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>格号：</label>
 		<div class="formControls col-xs-8 col-sm-9">
 			<input type="text" class="input-text" value="" placeholder="" id="standCase" name="standCase">
 		</div>
@@ -34,20 +34,14 @@
 </article>
 
 <!--请在下方写此页面业务相关的脚本--> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
-<script type="text/javascript" src="/learningResources/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 
 $(function(){
-	var type = getUrlParam('type');
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
 	
-	$("#form-user-add").validate({
+	$("#add").validate({
 		rules:{
 			row:{
 				required:true,
@@ -56,7 +50,7 @@ $(function(){
             standCase:{
 				required:true,
 				number:true
-			},
+			}
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -68,13 +62,9 @@ $(function(){
 });
 
 function add(){
-	
-	    handleAjax('',user).done(function(result){
-		if (result.status) {
-			// 添加用户
 			var params = {
 				row: $('#row').val(),
-				standCase: $('#standCase').val(),
+				standCase: $('#standCase').val()
 			}
 			handleAjax('userManage.do?method=addUser', params).done(function(result){
 				if (result.status) {
@@ -85,8 +75,7 @@ function add(){
 			}).fail(function(xhr, error){
 				alert('error')
 		});	
-		}
-	    });		
+
 }
 </script> 
 

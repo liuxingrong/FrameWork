@@ -59,7 +59,6 @@ public class DeadServiceImpl implements DeadService{
 
     public List<Dead> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return deadMapper.selectAll();
-        return null;
+        return deadMapper.selectAll();
     }
 }
