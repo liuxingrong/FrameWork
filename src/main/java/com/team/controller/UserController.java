@@ -2,16 +2,18 @@ package com.team.controller;
 
 import com.team.dto.User;
 import com.team.service.UserService;
-import com.team.util.JsonMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -56,13 +58,27 @@ public class UserController {
         return userService.getList(currentPage, pageSize);
     }
 
-    @RequestMapping("/validateUser")
+    @RequestMapping("/getMyInfo")
     @ResponseBody
-    public JsonMessage validateUser(){
-        JsonMessage jsonMessage = new JsonMessage();
-        User user = userService.findById(1);
-        jsonMessage.setData(user);
-        jsonMessage.setStatus(true);
-        return jsonMessage;
+    public User getMyInfo(HttpSession session) {
+        SecurityContext securityContext = (SecurityContext) session.getAttribute("SPRING_SECURITY_CONTEXT");
+//        System.out.println(securityContext);
+        String username = securityContext.getAuthentication().getName();
+        User user = userService.findByUsername(username);
+        user.setPassword(null);
+        return user;
     }
+
+    @RequestMapping("/isRegister")
+    @ResponseBody
+    public int isRegister(@RequestParam("username") String username) {
+        User user = userService.findByUsername(username);
+        if(user == null) {
+            // 该用户可以添加
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

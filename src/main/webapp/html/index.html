@@ -46,7 +46,7 @@
 </header>
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
-		<dl id="menu-user" style='display:none;'>
+		<dl>
 			<dt><i class="Hui-iconfont">&#xe620;</i> 业务管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -59,14 +59,14 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-resource" style='display:none;'>
+		<dl>
 			<dt><i class="Hui-iconfont">&#xe63e;</i> 骨灰寄存<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="./ashes_registration/list.html" data-title="骨灰登记" href="javascript:void(0)">骨灰登记</a></li>
 			</dd>
 		</dl>
-		<dl id="menu-score" style='display:none;'>
+		<dl>
 			<dt><i class="Hui-iconfont">&#xe602;</i> 基础数据<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
@@ -94,12 +94,13 @@
 				</ul>
 			</dd>
 		</dl>
-		<dl id="menu-info" style='display:none;'>
+		<dl>
 			<dt><i class="Hui-iconfont">&#xe62c;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="user-modify.html?type=info" data-title="个人信息管理" href="javascript:void(0)">修改个人信息</a></li>
-					<li><a data-href="change-password.html" data-title="修改密码" href="javascript:void(0)">修改密码</a></li>
+					<li id="userManage" style="display: none;"><a data-href="user/list.html" data-title="用户列表" href="javascript:void(0)">用户列表</a></li>
+					<li><a data-href="user/modify.html?type=mine" data-title="个人信息管理" href="javascript:void(0)">修改个人信息</a></li>
+					<li><a data-href="user/change-password.html" data-title="修改密码" href="javascript:void(0)">修改密码</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -139,24 +140,14 @@
 $(function(){
 	// 根据不同角色加载不同菜单
 	setTimeout(function(){
-		if(user.type === 1) {
-			$('#menu-resource-student').show();
-			$('#menu-score-student').show();
-			$('#menu-info').show();
-		} else if (user.type === 2) {
-			$('#menu-resource').show();
-			$('#menu-score').show();
-			$('#menu-info').show();
-		} else {
-			$('#menu-user').show();
-			$('#menu-resource').show();
-			$('#menu-score').show();
-			$('#menu-info').show();
+		if(user.type === 2) {
+		    // 管理员
+			$('#userManage').show();
 		}
 	}, 200);
 });
 /*个人信息*/
 function myselfinfo(){
-	layer_show('查看信息','userInfo.html','500','400');
+	layer_show('查看信息','user/userInfo.html','500','400');
 }
 </script>

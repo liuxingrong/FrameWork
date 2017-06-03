@@ -13,7 +13,7 @@ public class User {
 
     private String idCard;
 
-    private Integer telphone;
+    private String telphone;
 
     private String address;
 
@@ -65,11 +65,11 @@ public class User {
         this.idCard = idCard == null ? null : idCard.trim();
     }
 
-    public Integer getTelphone() {
+    public String getTelphone() {
         return telphone;
     }
 
-    public void setTelphone(Integer telphone) {
+    public void setTelphone(String telphone) {
         this.telphone = telphone;
     }
 
