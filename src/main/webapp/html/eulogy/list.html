@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta charset="utf-8">
+<title>悼词管理</title>
+<script src="/frame/static/common/header.js"></script>
+<script src="/frame/static/common/utils.js"></script>
+<script src="/frame/static/common/validateUser.js"></script>
+</head>
+<body onload='load()' style='display:none;'>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 基础数据维护 <span class="c-gray en">&gt;</span><span id='head'>悼词管理</span><a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container" style='margin-top: -20px;'>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> <span id='addButton'>添加悼词</span></a></span></div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="85%">悼词</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+	</table>
+	</div>
+</div>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/frame/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/frame/lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 2, "desc" ]],//默认第几个排序
+		"bStateSave": true,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[4]}// 制定列不参与排序
+		]
+	});
+	loadList();
+});
+/*悼词-列表*/
+function loadList() {
+	handleAjax('testdoc.do?method=getData').done(function(result){
+		var data = result.data;
+		if (data == null) {
+			$('tbody').html('暂无数据');
+			return;
+		}
+		var str = ''
+		for (var i=0; i<data.length; i++) {
+			str += 
+				'<tr class="text-c">' +
+					'<th>' + data[i].testDocName + '</th>' +
+					'<td>' + data[i].testDocDescription + '</td>' +
+					'<td>' + getDate(data[i].createTime) + '</td>' +
+					'<td>' + data[i].realname + '</td>' +
+					'<td class="td-manage">' +
+						'<a title="下载" download="' + data[i].testDocPath.split('*')[1].split('.')[0] + '" href="/learningResources/upload/' + data[i].testDocPath + '" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe640;</i></a>' +
+						'<a title="编辑" href="javascript:;" onclick="test_edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
+						'<a title="删除" href="javascript:;" onclick="test_del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
+					'</td>' +
+				'</tr>';
+		};
+		$('tbody').html(str);
+	}).fail(function(xhr, error){
+		alert('error');
+	});
+}
+/*悼词-添加*/
+function add(){
+	layer_show('添加悼词', 'add.html', '600', '500');
+}
+/*悼词-编辑*/
+function edit(id){
+	layer_show('编辑悼词', 'edit.html?id=' + id, '600', '400');
+}
+/*悼词-删除*/
+function del(id){
+	layer.confirm('确认要删除该悼词吗？',function(index){
+		handleAjax('' + id).done(function(result){
+			if (result.status) {
+				layer.msg('已删除!', {icon:1,time:1000}, function(){
+					window.location.reload();
+				});
+			} else {
+				layer.msg(result.msg, {icon:1,time:1000});
+			}
+		}).fail(function(xhr, error){
+			alert('error');
+		});
+	});
+}
+</script> 
+</body>
+</html>
