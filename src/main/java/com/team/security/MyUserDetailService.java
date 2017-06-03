@@ -27,7 +27,7 @@ public class MyUserDetailService implements UserDetailsService{
 
 		com.team.dto.User user = userService.findByUsername(username);
 		if(user != null) {
-			if(user.getType() == 0) {
+			if(user.getType() == 1) {
 				authorities.add(new GrantedAuthorityImpl("ROLE_USER"));
 			} else {
 				authorities.add(new GrantedAuthorityImpl("ROLE_ADMIN"));
