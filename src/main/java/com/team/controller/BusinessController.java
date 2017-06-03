@@ -99,5 +99,34 @@ public class BusinessController {
         return list;
     }
 
+    @RequestMapping("/choose")
+    @ResponseBody
+    public int choose(@RequestBody Map parm){
+        String type = (String) parm.get("type");
+        int i = Integer.parseInt(type);
+        String value = (String) parm.get("value");
+        String id = (String) parm.get("id");
+        Business business =   businessService.findById(Integer.parseInt(id));
+        business.setType(i+1);
+        if(i==1){
+            business.setCarId(value);
+        }
+        if(i==2){
+            business.setRefrigeratedId(Integer.parseInt(value));
+        }
+        if(i==3){
+            business.setUserId(Integer.parseInt(value));
+        }
+        if(i==4){
+            business.setFarewellHallId(Integer.parseInt(value));
+        }
+        if(i==5){
+            business.setCharge(Integer.parseInt(value));
+        }
+        if(i==6){
+            business.setCremationFurnaceId(Integer.parseInt(value));
+        }
+        return businessService.update(business);
+    }
 
 }
