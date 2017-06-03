@@ -1,5 +1,7 @@
 package com.team.util;
 
+import java.io.File;
+
 /**
  * Created by fantasy on 17-5-28.
  */
@@ -13,12 +15,21 @@ public class CopyControllerAndService {
         String exampleContent3 = ReadWriteFile.readFile(teamPath + "util/ExampleServiceImpl.txt");
         String[] exampleContents = {exampleContent1, exampleContent2, exampleContent3};
 
+        // 判断是否存在controller, service, service.impl文件夹，若不存在，则创建
+        String[] dirs = {"controller", "service/impl"};
+        for (int i=0; i<dirs.length; i++) {
+            File file = new File(teamPath + dirs[i]);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+        }
         // copy controller and service to packages
         copy(exampleContents, entities, teamPath);
         System.out.println("创建成功");
     }
 
     public static void copy(String[] exampleContents, String[] entities, String teamPath) throws Exception {
+
         // exampleContents
         for (int i = 0; i < entities.length; i++) {
             // controller

@@ -59,7 +59,6 @@ public class FarewellHallServiceImpl implements FarewellHallService{
 
     public List<FarewellHall> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return farewellHallMapper.selectAll();
-        return null;
+        return farewellHallMapper.selectAll();
     }
 }

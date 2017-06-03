@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.Refrigerated;
 
+import java.util.List;
+
 public interface RefrigeratedMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface RefrigeratedMapper {
     int updateByPrimaryKeySelective(Refrigerated record);
 
     int updateByPrimaryKey(Refrigerated record);
+
+    List<Refrigerated> selectAll();
 }

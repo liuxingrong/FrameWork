@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.Driver;
 
+import java.util.List;
+
 public interface DriverMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface DriverMapper {
     int updateByPrimaryKeySelective(Driver record);
 
     int updateByPrimaryKey(Driver record);
+
+    List<Driver> selectAll();
 }

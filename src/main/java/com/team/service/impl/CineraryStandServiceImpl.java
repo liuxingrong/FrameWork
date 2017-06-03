@@ -59,7 +59,6 @@ public class CineraryStandServiceImpl implements CineraryStandService{
 
     public List<CineraryStand> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return cineraryStandMapper.selectAll();
-        return null;
+        return cineraryStandMapper.selectAll();
     }
 }

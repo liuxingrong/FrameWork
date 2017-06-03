@@ -59,7 +59,6 @@ public class CarServiceImpl implements CarService{
 
     public List<Car> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return carMapper.selectAll();
-        return null;
+        return carMapper.selectAll();
     }
 }

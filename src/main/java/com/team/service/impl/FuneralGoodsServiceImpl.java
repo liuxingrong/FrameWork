@@ -59,7 +59,6 @@ public class FuneralGoodsServiceImpl implements FuneralGoodsService{
 
     public List<FuneralGoods> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return funeralGoodsMapper.selectAll();
-        return null;
+        return funeralGoodsMapper.selectAll();
     }
 }

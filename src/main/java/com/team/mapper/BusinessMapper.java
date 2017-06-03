@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.Business;
 
+import java.util.List;
+
 public interface BusinessMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface BusinessMapper {
     int updateByPrimaryKeySelective(Business record);
 
     int updateByPrimaryKey(Business record);
+
+    List<Business> selectAll();
 }

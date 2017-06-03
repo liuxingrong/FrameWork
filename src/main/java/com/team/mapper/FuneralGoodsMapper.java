@@ -2,6 +2,8 @@ package com.team.mapper;
 
 import com.team.dto.FuneralGoods;
 
+import java.util.List;
+
 public interface FuneralGoodsMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface FuneralGoodsMapper {
     int updateByPrimaryKeySelective(FuneralGoods record);
 
     int updateByPrimaryKey(FuneralGoods record);
+
+    List<FuneralGoods> selectAll();
 }

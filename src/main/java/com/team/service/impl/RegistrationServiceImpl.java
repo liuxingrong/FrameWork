@@ -59,7 +59,6 @@ public class RegistrationServiceImpl implements RegistrationService{
 
     public List<Registration> getList(int currentPage, int pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-//        return registrationMapper.selectAll();
-        return null;
+        return registrationMapper.selectAll();
     }
 }
