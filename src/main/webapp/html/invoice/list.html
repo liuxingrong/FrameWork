@@ -61,7 +61,7 @@ $(function(){
 });
 /*试卷-列表*/
 function loadList() {
-	handleAjax('testdoc.do?method=getData').done(function(result){
+	handleAjax('invoice/list?currentPage=1&pageSize=100').done(function(result){
 		var data = result.data;
 		if (data == null) {
 			$('tbody').html('暂无数据');
