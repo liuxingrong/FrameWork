@@ -2,27 +2,27 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>电话预约</title>
+    <title>骨灰登记</title>
     <script src="/frame/static/common/header.js"></script>
     <script src="/frame/static/common/utils.js"></script>
     <script src="/frame/static/common/validateUser.js"></script>
 </head>
 <body onload='load()' style='display:none;'>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 业务管理 <span class="c-gray en">&gt;</span><span id='head'>电话预约</span><a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 骨灰寄存 <span class="c-gray en">&gt;</span><span id='head'>骨灰登记</span><a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container" style='margin-top: -20px;'>
-    <div class="cl pd-5 bg-1 bk-gray mt-20" id="addTel" style='display:none;' >
-        <span class="l"><a href="javascript:;" onclick="telphone_add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> <span id='addButton'>预约登记</span></a></span>
+    <div class="cl pd-5 bg-1 bk-gray mt-20" id="addTel" >
+        <span class="l"><a href="javascript:;" onclick="add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> <span id='addButton'>骨灰登记</span></a></span>
     </div>
     <div class="mt-20">
         <table class="table table-border table-bordered table-hover table-bg table-sort">
             <thead>
             <tr class="text-c">
-                <th width="100" id='title'>业务编号</th>
-                <th width="70">死者姓名</th>
-                <th width="40">接尸时间</th>
-                <th width="90">接尸地点</th>
-                <th width="100">车号</th>
-                <th width="100">联系电话</th>
+                <th width="100" id='title'>姓名</th>
+                <th width="70">年龄</th>
+                <th width="40">性别</th>
+                <th width="90">骨灰架编号</th>
+                <th width="100">开始时间</th>
+                <th width="100">结束时间</th>
                 <th width="100">操作</th>
             </tr>
             </thead>
@@ -35,7 +35,8 @@
                 <td>tony-frank</td>
                 <td>tony-frank</td>
                 <td>
-                    <a title="提交" href="javascript:;" onclick="submit()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">提交</i></a>
+                    <a title="编辑" href="javascript:;" onclick="edit()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;" onclick="del()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
             </tr>
             </tbody>
@@ -53,7 +54,7 @@
             $("#addTel").show();
         }
         $('.table-sort').dataTable({
-            "aaSorting": [[ 2, "desc" ]],//默认第几个排序
+            "aaSorting": [[ 4, "desc" ]],//默认第几个排序
             "bStateSave": true,//状态保存
             "aoColumnDefs": [
                 //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
@@ -64,7 +65,7 @@
     });
     /*资源-列表*/
     function loadList() {
-        handleAjax('business/list?currentPage=0&type ='+type).done(function(result){
+        handleAjax('ashesRegistration/list?currentPage=1&pageSize=100').done(function(result){
             var data = result;
             if (data == null) {
                 $('tbody').html('暂无数据');
@@ -74,14 +75,15 @@
             for (var i=0; i<data.length; i++) {
                 str +=
                     '<tr class="text-c">' +
-                    '<th width="100">' + data[i].number + '</th>' +
-                    '<td>' + data[i].dead_name + '</td>' +
-                    '<td>' + getDate(data[i].pickUpTime) + '</td>' +
-                    '<td>' + data[i].pickUpAddress + '</td>' +
-                    '<td>' + data[i].carId + '</td>' +
-                    '<td>' + data[i].telephone + '</td>' +
+                    '<th width="100">' + data[i].name + '</th>' +
+                    '<td>' + data[i].age + '</td>' +
+                    '<td>' + data[i].gender + '</td>' +
+                    '<td>' + data[i].ashesNumber + '</td>' +
+                    '<td>' + getDate(data[i].startTime) + '</td>' +
+                    '<td>' + getDate(data[i].endTime) + '</td>' +
                     '<td class="td-manage">' +
-                    '<a title="提交" href="javascript:;" onclick="submit()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">提交</i></a>' +
+                    ' <a title="编辑" href="javascript:;" onclick="edit('+data[i].id +')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
+                     '<a title="删除" href="javascript:;" onclick="del('+data[i].id +')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>'+
                     '</td>' +
                     '</tr>';
             };
@@ -90,37 +92,34 @@
             alert('error');
         });
     }
-    /*资源-添加*/
-    function telphone_add(){
-        layer_show('预约登记', 'telphone-add.html?type=' + type, '600', '560');
-    }
-    function submit(){
-        var title = "选择车辆";
-        if(type == 5){
-            title = "选择火化炉";
-        }
-        alert(type);
-        layer_show(title, 'telphone-choose.html?type=' + type, '600', '530');
+    function add(){
+        layer_show('骨灰登记', 'add.html', '600', '560');
     }
 
-    /*资源-编辑*/
-    function resources_edit(id){
-        layer_show('编辑资源', 'resources-modify.html?id=' + id + '&type=' + type, '600', '400');
+    function edit(id){
+        layer_show('编辑', 'edit.html?id=' + id, '600', '400');
     }
-    /*资源-删除*/
-    function resources_del(id){
-        layer.confirm('确认要删除改该资源吗？',function(index){
-            handleAjax('resourceDoc.do?method=delete&id=' + id).done(function(result){
-                if (result.status) {
-                    layer.msg('已删除!', {icon:1,time:1000}, function(){
-                        window.location.reload();
-                    });
-                } else {
-                    layer.msg(result.msg, {icon:1,time:1000});
+    /*删除*/
+    function del(id){
+        layer.confirm('确认要删除改该登记吗？',function(index){
+            $.ajax({
+                type: 'post',
+                url: '/frame/ashesRegistration/delete?id=' + id,
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (result) {
+                    if (result==1) {
+                        layer.msg('已删除!', {icon:1,time:1000}, function(){
+                            window.location.reload();
+                        });
+                    } else {
+                        layer.msg(result.msg, {icon:1,time:1000});
+                    }
+                },
+                error: function () {
+                    alert('error')
                 }
-            }).fail(function(xhr, error){
-                alert('error');
-            });
+            })
         });
     }
 </script>

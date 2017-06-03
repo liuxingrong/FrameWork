@@ -17,5 +17,5 @@ public interface BusinessMapper {
 
     int updateByPrimaryKey(Business record);
 
-    List<Business> selectAll();
+    List<Business> selectAll(Integer type);
 }

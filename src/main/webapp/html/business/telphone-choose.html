@@ -12,22 +12,29 @@
 <body onload='load()' style='display:none;'>
 <article class="page-container">
 	<form class="form form-horizontal" id="form-study-link-add">
-		<div id = "car" style='display:none;'>
-			<div class="row cl">
-				<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>选择车辆：</label>
-				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
-				</div>
+		<div class="row cl" id="choose">
+			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span><span id="chooseType">选择车辆：</span></label>
+			<div class="formControls col-xs-8 col-sm-9" id="chage">
+			<span class="select-box" style="width:150px;">
+				<select class="select" name="model" id="chooseId" size="1">
+					<option value="1">自送</option>
+					<option value="2">殡葬车</option>
+				</select>
+			</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;确定&nbsp;&nbsp;">
 			</div>
 		</div>
 	</form>
 </article>
 </body>
 </html>
-
-
-<!--请在下方写此页面业务相关的脚本--> 
+<!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript">
+var type=null;
 $(function(){
 	type = getUrlParam('type');
 	if(type ==1){
@@ -39,47 +46,56 @@ $(function(){
 		radioClass: 'iradio-blue',
 		increaseArea: '20%'
 	});
-	
-	$("#form-study-link-add").validate({
-		rules:{
-			name:{
-				required:true,
-			},
-			description:{
-				required:true,
-			},
-			link:{
-				required:true,
-			},
-		},
-		onkeyup:false,
-		focusCleanup:true,
-		success:"valid",
-		submitHandler:function(form){
-			 setTimeout(function(){
-                var userId = user.id;
-                add(userId);  
-            }, 200);
-		}
-	});
+
+	if(type==1){
+	    choose('/frame/car/list?currentPage=1&pageSize=100','选择车辆',type)
+	}
+    if(type==2){
+        choose('/frame/refrigerated/list?currentPage=1&pageSize=100','选择冷藏室',type);
+    }
+    if(type==3){
+        choose('/frame/user/list?currentPage=1&pageSize=100','选择代办员',type);
+    }
+    if(type==4){
+        choose('/frame/mourningHall/list?currentPage=1&pageSize=100','选择悼念厅',type);
+    }
+    if(type==5){
+        chage();
+    }
+    if(type==6){
+        choose('/frame/cremationFurnace/list?currentPage=1&pageSize=100','选择火化炉',type);
+    }
 });
 
-function add(userId) {
-	// 添加资源
-	var params = {
-		userId: userId,
-		linkName: $('#name').val(),
-		linkDescription: $('#description').val(),
-		linkUrl: $('#link').val(),
-	}
-	handleAjax('studylink.do?method=add', params).done(function(result){
-		if(result.status){
-			layer.msg('添加成功!', {icon:1,time:1000}, function(){
-				refresh();
-			});
-		}
-	}).fail(function(xhr, error){
-		alert('error');
-	});
+function chage() {
+    $("#chooseType").html("收费");
+	$("#chage").html('<input type="text" class="input-text" value="" placeholder="" id="chage" name="chage">');
 }
-</script> 
+
+function choose(url,name,type) {
+    $("#chooseType").html(name);
+    var str = ''
+    $.ajax({
+        type: 'get',
+        url:url,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (result) {
+			for(var i=0;i<result.length;i++){
+                var value = result[i].byname;
+                if(type==1){
+                    value = result[i].flapper;
+                }
+                if(type==3){
+                    value = result[i].realName;
+                }
+			    str+='<option value="'+result[i].id+'">'+value+'</option>'
+			}
+			$("#chooseId").html(str);
+        },
+        error: function () {
+            alert('error')
+        }
+    });
+}
+</script>

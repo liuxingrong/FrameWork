@@ -13,6 +13,12 @@
 <article class="page-container">
 	<form class="form form-horizontal" id="form-study-link-add">
 		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>业务编号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
+			</div>
+		</div>
+		<div class="row cl">
 			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>死者姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="name" name="name">
@@ -20,13 +26,13 @@
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>性别：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input type="radio" id="sex-1" name="sex" value="1" checked>
+					<input type="radio" name="sex" value="1" checked>
 					<label for="sex-1">男</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-2" name="sex" value="2">
+					<input type="radio" name="sex" value="2">
 					<label for="sex-2">女</label>
 				</div>
 			</div>
@@ -94,6 +100,10 @@ $(function(){
 	
 	$("#form-study-link-add").validate({
 		rules:{
+            number:{
+                required:true,
+                number:true
+            },
 			name:{
 				required:true,
 			},
@@ -133,15 +143,17 @@ $(function(){
 function add(userId) {
 	// 添加资源
 	var params = {
+        number: $('#number').val(),
         deadName: $('#name').val(),
-        sex: $('#sex').val(),
+        gender: $('input:radio[name="sex"]:checked').val(),
         deathCause: $('#deathCause').val(),
         telephone: $('#telephone').val(),
         age: $('#age').val(),
-        pickUpTime:new Date( $('#pickUpTime').val()),
+        pickUpTime:$('#pickUpTime').val(),
         pickUpAddress: $('#pickUpAddress').val(),
         note:$('#note').val()
-	}
+	};
+	alert(JSON.stringify(params));
 	console.info(params)
 	$.ajax({
         type: 'post',

@@ -17,5 +17,5 @@ public interface BusinessService {
 
     Business findById(Integer id);
 
-    List<Business> getList(int currentPage, int pageSize);
+    List<Business> getList(int currentPage, int pageSize,int type);
 }
