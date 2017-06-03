@@ -7,6 +7,7 @@
 	<script src="/frame/static/common/header.js"></script>
 	<script src="/frame/static/common/utils.js"></script>
 	<script src="/frame/static/common/validateUser.js"></script>
+	<link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <article class="page-container">
@@ -35,7 +36,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>发证日期：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'datemin\')}' })" id="IssuingDate" class="input-text Wdate" style="width:180px;">
+				<input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="IssuingDate" class="input-text Wdate" style="width:180px;">
 			</div>
 		</div>
 
@@ -58,11 +59,11 @@
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript">
 
 	$(function(){
-
-		$("#edit").validate({
+		$("#add").validate({
 			rules:{
 				dname:{
 					required:true,
@@ -100,18 +101,30 @@
 			age: $('#age').val(),
 			licence: $('#licence').val(),
 			phone: $('#phone').val(),
-			IssuingDate: $('#IssuingDate').val()
+			IssuingDate:new Date($('#IssuingDate').val()),
+			status:10
 		}
-		handleAjax('userManage.do?method=addUser', params).done(function(result){
-			if (result.status) {
-				layer.msg('添加成功!', {icon:1,time:1000}, function(){
-					refresh();
-				});
+		$.ajax({
+			type: 'post',
+			url: '/frame/driver/insert',
+			dataType: 'json',
+			contentType: 'application/json',
+			data:JSON.stringify(params),
+			success: function(result) {
+				if(result==1){
+					layer.msg('添加成功!', {icon:1,time:1000}, function(){
+						refresh();
+					});
+				}else{
+					layer.msg('添加失败!', {icon:1,time:1000}, function(){
+						refresh();
+					});
+				}
+			},
+			error: function() {
+				alert('error')
 			}
-		}).fail(function(xhr, error){
-			alert('error')
 		});
-
 	}
 </script>
 

@@ -45,11 +45,11 @@ $(function(){
 		rules:{
 			row:{
 				required:true,
-				number:true
+				digits:true
 			},
             standCase:{
 				required:true,
-				number:true
+				digits:true
 			}
 		},
 		onkeyup:false,
@@ -64,18 +64,30 @@ $(function(){
 function add(){
 			var params = {
 				row: $('#row').val(),
-				standCase: $('#standCase').val()
+				standCase: $('#standCase').val(),
+				status:10
 			}
-			handleAjax('userManage.do?method=addUser', params).done(function(result){
-				if (result.status) {
-					    layer.msg('添加成功!', {icon:1,time:1000}, function(){
-						refresh();
-					});
-				}
-			}).fail(function(xhr, error){
-				alert('error')
-		});	
-
+	$.ajax({
+		type: 'post',
+		url: '/frame/cineraryStand/insert',
+		dataType: 'json',
+		contentType: 'application/json',
+		data:JSON.stringify(params),
+		success: function(result) {
+			if(result==1){
+				layer.msg('添加成功!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}else{
+				layer.msg('添加失败!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}
+		},
+		error: function() {
+			alert('error')
+		}
+	});
 }
 </script> 
 

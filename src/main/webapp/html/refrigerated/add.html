@@ -7,6 +7,7 @@
 <script src="/frame/static/common/header.js"></script>
 <script src="/frame/static/common/utils.js"></script>
 <script src="/frame/static/common/validateUser.js"></script>
+	<link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <article class="page-container">
@@ -20,7 +21,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>类型：</label>
 			<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
-			<select class="select" name="type" size="1">
+			<select class="select" name="type" id="type" size="1">
 				<option value="1">独立冰柜</option>
 				<option value="2">普通冰柜</option>
 			</select>
@@ -54,23 +55,17 @@
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script> 
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script> 
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript">
 
 $(function(){
-	var type = getUrlParam('type');
-	$('.skin-minimal input').iCheck({
-		checkboxClass: 'icheckbox-blue',
-		radioClass: 'iradio-blue',
-		increaseArea: '20%'
-	});
-	
 	$("#add").validate({
 		rules:{
 			number:{
 				required:true
 			},
             type:{
-				required:true,
+				required:true
 			},
 			byname:{
 				required:true
@@ -91,19 +86,32 @@ $(function(){
 function add(){
 			var params = {
 				number: $('#number').val(),
-				type: $('#number').val(),
+				type: $('#type').val(),
 				byname: $('#byname').val(),
-				price: $('#price').val()
+				price: $('#price').val(),
+				status:10
 			}
-			handleAjax('userManage.do?method=addUser', params).done(function(result){
-				if (result.status) {
-					    layer.msg('添加成功!', {icon:1,time:1000}, function(){
-						refresh();
-					});
-				}
-			}).fail(function(xhr, error){
-				alert('error')
-		});	
+	$.ajax({
+		type: 'post',
+		url: '/frame/refrigerated/insert',
+		dataType: 'json',
+		contentType: 'application/json',
+		data:JSON.stringify(params),
+		success: function(result) {
+			if(result==1){
+				layer.msg('添加成功!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}else{
+				layer.msg('添加失败!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}
+		},
+		error: function() {
+			alert('error')
+		}
+	});
 
 }
 </script> 

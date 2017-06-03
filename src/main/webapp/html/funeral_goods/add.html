@@ -10,7 +10,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="form-user-add">
+	<form action="" method="post" class="form form-horizontal" id="add">
 		<div class="row cl">
 		<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>费用名：</label>
 		<div class="formControls col-xs-8 col-sm-9">
@@ -65,9 +65,9 @@
 		<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>所属类目：</label>
 		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
 			<select class="select" name="type" size="1">
-				<option value="0">骨灰盒</option>
-				<option value="1">殡仪费</option>
-				<option value="2">其它</option>
+				<option value="1">骨灰盒</option>
+				<option value="2">殡仪费</option>
+				<option value="3">其它</option>
 			</select>
 			</span> 
 		</div>
@@ -92,13 +92,16 @@ $(function(){
 	$("#add").validate({
 		rules:{
 			costName:{
-				required:true
+				required:true,
+				rangelength:[3,20]
 			},
 			unit:{
-				required:true
+				required:true,
+				rangelength:[1,2]
 			},
 			price:{
-				required:true
+				required:true,
+				digits:true
 			},
 			isCost:{
 				required:true
@@ -107,7 +110,8 @@ $(function(){
 				required:true
 			},
 			organization:{
-				required:true
+				required:true,
+			    rangelength:[2,10]
 			},
 			type:{
 				required:true
@@ -131,17 +135,30 @@ function add(){
 				isCost: $('#isCost').val(),
 				costType: $('#costType').val(),
 				organization: $('#organization').val(),
-				type: $('#type').val()
+				type: $('#type').val(),
+				status:10
 			}
-			handleAjax('userManage.do?method=addUser', params).done(function(result){
-				if (result.status) {
-					    layer.msg('添加成功!', {icon:1,time:1000}, function(){
-						refresh();
-					});
-				}
-			}).fail(function(xhr, error){
-				alert('error')
-		});	
+	$.ajax({
+		type: 'post',
+		url: '/frame/funeralGoods/insert',
+		dataType: 'json',
+		contentType: 'application/json',
+		data:JSON.stringify(params),
+		success: function(result) {
+			if(result==1){
+				layer.msg('添加成功!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}else{
+				layer.msg('添加失败!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}
+		},
+		error: function() {
+			alert('error')
+		}
+	});
 
 }
 </script> 
