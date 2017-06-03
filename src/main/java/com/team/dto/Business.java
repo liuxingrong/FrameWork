@@ -17,7 +17,7 @@ public class Business {
 
     private String pickUpAddress;
 
-    private Integer carId;
+    private String carId;
 
     private Integer driverId;
 
@@ -95,11 +95,11 @@ public class Business {
         this.pickUpAddress = pickUpAddress == null ? null : pickUpAddress.trim();
     }
 
-    public Integer getCarId() {
+    public String getCarId() {
         return carId;
     }
 
-    public void setCarId(Integer carId) {
+    public void setCarId(String carId) {
         this.carId = carId;
     }
 

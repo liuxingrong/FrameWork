@@ -9,7 +9,7 @@
 <script src="/frame/static/common/validateUser.js"></script>
 <link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
 </head>
-<body onload='load()' style='display:none;'>
+<body>
 <article class="page-container">
 	<form class="form form-horizontal" id="form-study-link-add">
 		<div class="row cl" id="choose">
@@ -25,7 +25,7 @@
 		</div>
 		<div class="row cl">
 			<div class="col-xs-8 col-sm-9 col-xs-offset-3 col-sm-offset-3">
-				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;确定&nbsp;&nbsp;">
+				<input class="btn btn-primary radius" type="button" onclick="edit()" value="&nbsp;&nbsp;确定&nbsp;&nbsp;">
 			</div>
 		</div>
 	</form>
@@ -66,10 +66,43 @@ $(function(){
         choose('/frame/cremationFurnace/list?currentPage=1&pageSize=100','选择火化炉',type);
     }
 });
-
+function edit() {
+    var id = getUrlParam('id');
+    var value = "";
+    if(type==5){
+		value = $("#chage1").val();
+	}else{
+        value = $("#chooseId").val();
+	}
+	if(type==1){
+        value = $("#chooseId").find("option:selected").text();
+	}
+    var params = {
+        type:type,
+		value:value,
+		id:id
+    }
+    $.ajax({
+        type: 'post',
+        url: '/frame/business/choose',
+        dataType: 'json',
+        contentType: 'application/json',
+        data:JSON.stringify(params),
+        success: function (result) {
+            if (result==1) {
+                layer.msg('提交成功!', {icon:1,time:1000}, function(){
+                    refresh();
+                });
+            }
+        },
+        error: function () {
+            alert('error')
+        }
+    });
+}
 function chage() {
     $("#chooseType").html("收费");
-	$("#chage").html('<input type="text" class="input-text" value="" placeholder="" id="chage" name="chage">');
+	$("#chage").html('<input type="text" class="input-text" value="" placeholder="" id="chage1" name="chage">');
 }
 
 function choose(url,name,type) {

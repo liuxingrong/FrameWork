@@ -7,7 +7,7 @@
 <script src="/frame/static/common/utils.js"></script>
 <script src="/frame/static/common/validateUser.js"></script>
 </head>
-<body onload='load()' style='display:none;'>
+<body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 业务管理 <span class="c-gray en">&gt;</span><span id='head'>电话预约</span><a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container" style='margin-top: -20px;'>
 	<div class="cl pd-5 bg-1 bk-gray mt-20" id="addTel" style='display:none;' >
@@ -115,7 +115,7 @@ function loadList(type) {
 function telphone_add(){
 	layer_show('预约登记', 'telphone-add.html?type=' + type, '600', '560');
 }	
-function submit(){
+function submit(id){
 	var title = "选择车辆";
 	if(type==2){
         title = "冷藏登记";
@@ -132,7 +132,7 @@ function submit(){
     if(type == 6){
         title = "选择火化炉";
     }
-	layer_show(title, 'telphone-choose.html?type=' + type, '600', '530');
+	layer_show(title, 'telphone-choose.html?type=' + type+'&id='+id, '400', '200');
 }
 function del(id){
     layer.confirm('确认要删除改该登记吗？',function(index){

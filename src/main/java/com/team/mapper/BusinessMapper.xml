@@ -9,7 +9,7 @@
     <result column="dead_name" jdbcType="VARCHAR" property="deadName" />
     <result column="pick_up_time" jdbcType="DATE" property="pickUpTime" />
     <result column="pick_up_address" jdbcType="VARCHAR" property="pickUpAddress" />
-    <result column="car_id" jdbcType="INTEGER" property="carId" />
+    <result column="car_id" jdbcType="VARCHAR" property="carId" />
     <result column="driver_id" jdbcType="INTEGER" property="driverId" />
     <result column="refrigerated_id" jdbcType="INTEGER" property="refrigeratedId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
@@ -46,7 +46,7 @@
       )
     values (#{id,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR},
       #{deadId,jdbcType=INTEGER}, #{deadName,jdbcType=VARCHAR}, #{pickUpTime,jdbcType=DATE}, 
-      #{pickUpAddress,jdbcType=VARCHAR}, #{carId,jdbcType=INTEGER}, #{driverId,jdbcType=INTEGER}, 
+      #{pickUpAddress,jdbcType=VARCHAR}, #{carId,jdbcType=VARCHAR}, #{driverId,jdbcType=INTEGER},
       #{refrigeratedId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{farewellHallId,jdbcType=INTEGER}, 
       #{cremationFurnaceId,jdbcType=INTEGER}, #{charge,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR}, 
       #{type,jdbcType=INTEGER}, #{createTime,jdbcType=DATE}, #{flapper,jdbcType=VARCHAR}
@@ -133,7 +133,7 @@
         #{pickUpAddress,jdbcType=VARCHAR},
       </if>
       <if test="carId != null">
-        #{carId,jdbcType=INTEGER},
+        #{carId,jdbcType=VARCHAR},
       </if>
       <if test="driverId != null">
         #{driverId,jdbcType=INTEGER},
@@ -189,7 +189,7 @@
         pick_up_address = #{pickUpAddress,jdbcType=VARCHAR},
       </if>
       <if test="carId != null">
-        car_id = #{carId,jdbcType=INTEGER},
+        car_id = #{carId,jdbcType=VARCHAR},
       </if>
       <if test="driverId != null">
         driver_id = #{driverId,jdbcType=INTEGER},
@@ -232,7 +232,7 @@
       dead_name = #{deadName,jdbcType=VARCHAR},
       pick_up_time = #{pickUpTime,jdbcType=DATE},
       pick_up_address = #{pickUpAddress,jdbcType=VARCHAR},
-      car_id = #{carId,jdbcType=INTEGER},
+      car_id = #{carId,jdbcType=VARCHAR},
       driver_id = #{driverId,jdbcType=INTEGER},
       refrigerated_id = #{refrigeratedId,jdbcType=INTEGER},
       user_id = #{userId,jdbcType=INTEGER},
