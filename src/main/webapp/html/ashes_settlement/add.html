@@ -1,4 +1,3 @@
-<!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -31,9 +30,7 @@
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
-
 	$(function(){
-
 		$("#add").validate({
 			rules:{
 				aname:{
@@ -53,18 +50,30 @@
 
 	function add(){
 		var params = {
-			aname: $('#aname').val(),
-
+			aname: $('#aname').val()
 		}
-		handleAjax('userManage.do?method=addUser', params).done(function(result){
-			if (result.status) {
-				layer.msg('添加成功!', {icon:1,time:1000}, function(){
-					refresh();
-				});
+		$.ajax({
+			type: 'post',
+			url: '/frame/ashesSettlement/insert',
+			dataType: 'json',
+			contentType: 'application/json',
+			data:JSON.stringify(params),
+			success: function(result) {
+				if(result==1){
+					layer.msg('添加成功!', {icon:1,time:1000}, function(){
+						refresh();
+					});
+				}else{
+					layer.msg('添加失败!', {icon:1,time:1000}, function(){
+						refresh();
+					});
+				}
+			},
+			error: function() {
+				alert('error')
 			}
-		}).fail(function(xhr, error){
-			alert('error')
 		});
+
 	}
 </script>
 

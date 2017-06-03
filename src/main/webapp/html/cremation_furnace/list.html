@@ -19,26 +19,10 @@
 				<th width="70">别名</th>
 				<th width="40">火化时段</th>
 				<th width="90">种类</th>
-				<th width="150">收费编号</th>
 				<th width="70">状态</th>
 				<th width="100">操作</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr class="text-c">
-				<td>ujhujuh</td>
-				<td>tom</td>
-				<td>男</td>
-				<td>18123123123</td>
-				<td>18123123123</td>
-				<td>admin@mail.com</td>
-				<td class="td-manage">
-					<a style="text-decoration:none" onClick="user_changeActive(this)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>
-					<a title="编辑" href="javascript:;" onclick="user_edit()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-					<a title="删除" href="javascript:;" onclick="user_del(this)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
-				</td>
-			</tr>
-		</tbody>
 	</table>
 	</div>
 </div>
@@ -57,8 +41,7 @@ $(function(){
 
 /*火化炉-列表*/
 function loadList() {
-	handleAjax('userManage.do?method=findList&type='+type).done(function(result){
-		var data = result.data;
+	handleAjax('cremationFurnace/list?currentPage=1&pageSize=100').done(function(data){
 		if (data == null) {
 			$('tbody').html('暂无数据');
 			return;
@@ -67,16 +50,14 @@ function loadList() {
 		for (var i=0; i<data.length; i++) {
 			str += 
 				'<tr class="text-c">' +
-					'<th>' + data[i].username + '</th>' +
-					'<td>' + data[i].realname + '</td>' +
-					'<td>'+ data[i].gender == 1 ? '男' : '女' + '</td>' +
-					'<td>'+ data[i].tel + '</td>' +
-					'<td>'+ data[i].email + '</td>' +
-					'<td>'+ getDate(data[i].createTime) + '</td>' +
-					'<td class="td-status"><span class="label label-success radius">'+ (data[i].isActive == 1 ? "已启用" : "已停用") +'</span></td>' +
+					'<th>' + data[i].number + '</th>' +
+					'<td>' + data[i].byname + '</td>' +
+				    '<td>'+ getDate(data[i].startTime) + '</td>' +
+					'<td>'+ data[i].type + '</td>' +
+					'<td>'+ data[i].status + '</td>' +
 					'<td class="td-manage">' +		
-						'<a title="编辑" href="javascript:;" onclick="user_edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
-						'<a title="删除" href="javascript:;" onclick="user_del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
+						'<a title="编辑" href="javascript:;" onclick="edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
+						'<a title="删除" href="javascript:;" onclick="del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
 					'</td>' +
 				'</tr>';
 		};
@@ -98,17 +79,17 @@ function edit(id){
 
 
 /*用户-删除*/
-function user_del(id){
+function del(id){
 	layer.confirm('确认要删除该火化炉吗？',function(index){
-		handleAjax('userManage.do?method=delUser&id='+ id).done(function(result){
-			if (result.status) {
+		handleAjax('cineraryStand/delete?id='+ id).done(function(result){
+			if (result!=null) {
 				layer.msg('已删除!', {icon:1,time:1000}, function(){
 					window.location.reload();
 				});
-			} 
-		}).fail(function(xhr,error){
+			}
+		}).fail(function(xhr, error){
 			alert('error');
-		});	
+		});
 	});
 }
 </script> 

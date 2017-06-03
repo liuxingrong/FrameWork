@@ -3,15 +3,21 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>添加学习资源</title>
+<title>电话预约</title>
 <script src="/frame/static/common/header.js"></script>
 <script src="/frame/static/common/utils.js"></script>
-<script src="/learningResources/static/common/validateUser.js"></script>
+<script src="/frame/static/common/validateUser.js"></script>
 <link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <article class="page-container">
 	<form class="form form-horizontal" id="form-study-link-add">
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>业务编号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="number" name="number">
+			</div>
+		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>死者姓名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
@@ -20,13 +26,13 @@
 		</div>
 		<div class="row cl">
 			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>性别：</label>
-			<div class="formControls col-xs-8 col-sm-9">
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
 				<div class="radio-box">
-					<input name="sex" type="radio" id="sex-1" checked>
+					<input type="radio" name="sex" value="1" checked>
 					<label for="sex-1">男</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-2" name="sex">
+					<input type="radio" name="sex" value="2">
 					<label for="sex-2">女</label>
 				</div>
 			</div>
@@ -41,6 +47,12 @@
 			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>年龄：</label>
 			<div class="formControls col-xs-8 col-sm-9">
 				<input type="text" class="input-text" value="" placeholder="" id="age" name="age">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>预约电话：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="" id="telephone" name="telephone">
 			</div>
 		</div>
 		<div class="row cl">
@@ -88,15 +100,33 @@ $(function(){
 	
 	$("#form-study-link-add").validate({
 		rules:{
+            number:{
+                required:true,
+                number:true
+            },
 			name:{
 				required:true,
 			},
-			description:{
+            sex:{
 				required:true,
 			},
-			link:{
+            deathCause:{
 				required:true,
 			},
+            age:{
+                required:true,
+				number:true
+            },
+            telephone:{
+                required:true,
+                isMobile:true
+            },
+            pickUpTime:{
+                required:true,
+            },
+            pickUpAddress:{
+                required:true,
+            }
 		},
 		onkeyup:false,
 		focusCleanup:true,
@@ -113,19 +143,44 @@ $(function(){
 function add(userId) {
 	// 添加资源
 	var params = {
-		userId: userId,
-		linkName: $('#name').val(),
-		linkDescription: $('#description').val(),
-		linkUrl: $('#link').val(),
-	}
-	handleAjax('studylink.do?method=add', params).done(function(result){
-		if(result.status){
-			layer.msg('添加成功!', {icon:1,time:1000}, function(){
-				refresh();
-			});
-		}
-	}).fail(function(xhr, error){
-		alert('error');
-	});
+        number: $('#number').val(),
+        deadName: $('#name').val(),
+        gender: $('input:radio[name="sex"]:checked').val(),
+        deathCause: $('#deathCause').val(),
+        telephone: $('#telephone').val(),
+        age: $('#age').val(),
+        pickUpTime:$('#pickUpTime').val(),
+        pickUpAddress: $('#pickUpAddress').val(),
+        note:$('#note').val()
+	};
+	alert(JSON.stringify(params));
+	console.info(params)
+	$.ajax({
+        type: 'post',
+        url: '/frame/business/insert',
+        dataType: 'json',
+        contentType: 'application/json',
+        data:JSON.stringify(params),
+        success: function(result) {
+			alert(result);
+            if(result==1){
+				layer.msg('添加成功!', {icon:1,time:1000}, function(){
+					refresh();
+				});
+			}
+        },
+        error: function() {
+            alert('error')
+        }
+	})
+//	handleAjax('business/insert', business).done(function(result){
+//		if(result.status){
+//			layer.msg('添加成功!', {icon:1,time:1000}, function(){
+//				refresh();
+//			});
+//		}
+//	}).fail(function(xhr, error){
+//		alert('error');
+//	});
 }
 </script> 

@@ -65,9 +65,20 @@
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
-
+	var id = getUrlParam('id');
+	loadPage(id);
+	function loadPage(id) {
+		handleAjax('farewellHall/find?id='+ id).done(function(data) {
+			$('#number').val(data.number),
+			$('#fname').val(data.fname),
+			$('#format').val(data.format),
+			$('#startTime').val(data.startTime),
+			$('#endTime').val(data.content)
+		}).fail(function(xhr, error){
+			alert('error')
+		})
+	}
 	$(function(){
-
 		$("#edit").validate({
 			rules:{
 				number:{
@@ -100,22 +111,35 @@
 		});
 	});
 
-	function add(){
+	function edit(id){
 		var params = {
+			id:id,
 			number: $('#number').val(),
 			fname: $('#fname').val(),
 			format: $('#format').val(),
 			startTime: $('#startTime').val(),
 			endTime: $('#endTime').val()
 		}
-		handleAjax('userManage.do?method=addUser', params).done(function(result){
-			if (result.status) {
-				layer.msg('添加成功!', {icon:1,time:1000}, function(){
-					refresh();
-				});
+		$.ajax({
+			type: 'post',
+			url: '/frame/farewellHall/update',
+			dataType: 'json',
+			contentType: 'application/json',
+			data:JSON.stringify(params),
+			success: function(result) {
+				if(result==1){
+					layer.msg('修改成功!', {icon:1,time:1000}, function(){
+						refresh();
+					});
+				}else{
+					layer.msg('修改失败!', {icon:1,time:1000}, function(){
+						refresh();
+					});
+				}
+			},
+			error: function() {
+				alert('error')
 			}
-		}).fail(function(xhr, error){
-			alert('error')
 		});
 	}
 </script>

@@ -27,5 +27,8 @@ function getDate(createTime) {
 	if (createTime == null) {
 		return "";
 	}
-	return createTime.year + '-' + (createTime.month + 1) + '-' + createTime.day;
+    createTime = new Date(createTime);
+	return createTime.getFullYear()+"-"+createTime.getMonth()+"-"+createTime.getDay()+" "+createTime.getHours()+":"+createTime.getMinutes()+":"+createTime.getSeconds();
+
+// return createTime.year + '-' + (createTime.month + 1) + '-' + createTime.day;
 }

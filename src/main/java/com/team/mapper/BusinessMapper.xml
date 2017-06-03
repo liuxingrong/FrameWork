@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.team.dto.Business">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="number" jdbcType="INTEGER" property="number" />
-    <result column="telephone" jdbcType="INTEGER" property="telephone" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
     <result column="dead_id" jdbcType="INTEGER" property="deadId" />
     <result column="dead_name" jdbcType="VARCHAR" property="deadName" />
     <result column="pick_up_time" jdbcType="DATE" property="pickUpTime" />
@@ -44,7 +44,7 @@
       cremation_furnace_id, charge, note, 
       type, create_time, flapper
       )
-    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{telephone,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR},
       #{deadId,jdbcType=INTEGER}, #{deadName,jdbcType=VARCHAR}, #{pickUpTime,jdbcType=DATE}, 
       #{pickUpAddress,jdbcType=VARCHAR}, #{carId,jdbcType=INTEGER}, #{driverId,jdbcType=INTEGER}, 
       #{refrigeratedId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{farewellHallId,jdbcType=INTEGER}, 
@@ -118,7 +118,7 @@
         #{number,jdbcType=INTEGER},
       </if>
       <if test="telephone != null">
-        #{telephone,jdbcType=INTEGER},
+        #{telephone,jdbcType=VARCHAR},
       </if>
       <if test="deadId != null">
         #{deadId,jdbcType=INTEGER},
@@ -174,7 +174,7 @@
         number = #{number,jdbcType=INTEGER},
       </if>
       <if test="telephone != null">
-        telephone = #{telephone,jdbcType=INTEGER},
+        telephone = #{telephone,jdbcType=VARCHAR},
       </if>
       <if test="deadId != null">
         dead_id = #{deadId,jdbcType=INTEGER},
@@ -227,7 +227,7 @@
   <update id="updateByPrimaryKey" parameterType="com.team.dto.Business">
     update business
     set number = #{number,jdbcType=INTEGER},
-      telephone = #{telephone,jdbcType=INTEGER},
+      telephone = #{telephone,jdbcType=VARCHAR},
       dead_id = #{deadId,jdbcType=INTEGER},
       dead_name = #{deadName,jdbcType=VARCHAR},
       pick_up_time = #{pickUpTime,jdbcType=DATE},
@@ -246,9 +246,10 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectAll" resultMap="BaseResultMap">
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from business
+    where type = #{type,jdbcType=INTEGER}
   </select>
 </mapper>

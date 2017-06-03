@@ -7,6 +7,7 @@
 <script src="/frame/static/common/header.js"></script>
 <script src="/frame/static/common/utils.js"></script>
 <script src="/frame/static/common/validateUser.js"></script>
+	<link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
 </head>
 <body onload='load()' style='display:none;'>
 <article class="page-container">
@@ -35,7 +36,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>发证日期：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'datemin\')}' })" id="IssuingDate" class="input-text Wdate" style="width:180px;">
+				<input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="IssuingDate" class="input-text Wdate" style="width:180px;">
 			</div>
 		</div>
 
@@ -58,10 +59,24 @@
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
 <script type="text/javascript">
 
 $(function(){
-
+	var id = getUrlParam('id');
+	loadPage(id);
+	function loadPage(id) {
+		handleAjax('driver/find?id='+ id).done(function(data) {
+			$('#number').val(data.number),
+					$('#dname').val(data.dname),
+					$('#age').val(data.age),
+					$('#licence').val(data.licence),
+					$('#phone').val(data.phone),
+					$("#IssuingDate").val(data.IssuingDate)
+		}).fail(function(xhr, error){
+			alert('error')
+		})
+	}
 	$("#edit").validate({
 		rules:{
 			dname:{
@@ -89,30 +104,42 @@ $(function(){
 		focusCleanup:true,
 		success:"valid",
 		submitHandler:function(form){
-			add();
+			edit(id);
 		}
 	});
-});
-
-function edit(){
-			var params = {
-				dname: $('#dname').val(),
-				age: $('#age').val(),
-				licence: $('#licence').val(),
-				phone: $('#phone').val(),
-				IssuingDate: $('#IssuingDate').val()
+})
+function edit(id) {
+	var params = {
+		id: id,
+		dname: $('#dname').val(),
+		age: $('#age').val(),
+		licence: $('#licence').val(),
+		phone: $('#phone').val(),
+		IssuingDate: $('#IssuingDate').val()
+	}
+	$.ajax({
+		type: 'post',
+		url: '/frame/driver/update',
+		dataType: 'json',
+		contentType: 'application/json',
+		data: JSON.stringify(params),
+		success: function (result) {
+			if (result == 1) {
+				layer.msg('修改成功!', {icon: 1, time: 1000}, function () {
+					refresh();
+				});
+			} else {
+				layer.msg('修改失败!', {icon: 1, time: 1000}, function () {
+					refresh();
+				});
 			}
-			handleAjax('userManage.do?method=addUser', params).done(function(result){
-				if (result.status) {
-					    layer.msg('修改成功!', {icon:1,time:1000}, function(){
-						refresh();
-					});
-				}
-			}).fail(function(xhr, error){
-				alert('error')
-		});
-
+		},
+		error: function () {
+			alert('error')
+		}
+	})
 }
+
 </script>
 
 </body>
