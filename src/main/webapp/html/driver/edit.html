@@ -72,7 +72,7 @@ $(function(){
 					$('#age').val(data.age),
 					$('#licence').val(data.licence),
 					$('#phone').val(data.phone),
-					$("#IssuingDate").val(data.IssuingDate)
+                	$("#IssuingDate").val(getDate(data.IssuingDate))
 		}).fail(function(xhr, error){
 			alert('error')
 		})

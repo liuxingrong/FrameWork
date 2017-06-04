@@ -1,0 +1,96 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>修改车辆</title>
+    <script src="/frame/static/common/header.js"></script>
+    <script src="/frame/static/common/utils.js"></script>
+    <script src="/frame/static/common/validateUser.js"></script>
+    <link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+</head>
+<body >
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="edit">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆编号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" placeholder="" id="number" name="number">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆型号：</label>
+            <div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select" name="model" id="model" size="1">
+				<option value="1">自送</option>
+				<option value="2">殡葬车</option>
+			</select>
+			</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆种类：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+		   <span class="select-box" style="width:150px;">
+			<select class="select" name="type" id="type" size="1">
+				<option value="1">馆外殡葬车</option>
+				<option value="2">馆内殡葬车</option>
+			</select>
+			</span>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>车辆号牌：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="flapper" name="flapper">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>默认驾驶员：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="driver" name="driver">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2" style="text-align: right;">购买日期：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" id="purchase" class="input-text Wdate" style="width:180px;">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+<script type="text/javascript">
+
+    function loadPage(id) {
+        handleAjax('car/find?id='+ id).done(function(data) {
+            $('#number').val(data.number),
+                $('#model').val(data.model),
+                $('#type').val(data.type),
+                $('#flapper').val(data.flapper),
+                $('#driver').val(data.driver),
+                $("#purchase").val(data.purchase)
+        }).fail(function(xhr, error){
+            alert('error')
+        })
+    }
+    $(function(){
+        var id = getUrlParam('id');
+        loadPage(id);
+        $('input').attr("disabled","disabled");
+        $('select').attr("disabled","disabled");
+        $('radio').attr("disabled","disabled");
+    });
+</script>
+</body>
+</html>

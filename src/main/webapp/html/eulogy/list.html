@@ -48,6 +48,7 @@ function loadList() {
 					'<td class="td-manage">' +
 						'<a title="编辑" href="javascript:;" onclick="edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
 						'<a title="删除" href="javascript:;" onclick="del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
+                		'<a title="查看" href="javascript:;" onclick="view('+data[i].id +')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe709;</i></a>'+
 					'</td>' +
 				'</tr>';
 		};
@@ -63,6 +64,9 @@ function add(){
 /*悼词-编辑*/
 function edit(id){
 	layer_show('编辑悼词', 'edit.html?id=' + id, '600', '400');
+}
+function view(id) {
+    layer_show('查看', 'view.html?id=' + id, '600', '400');
 }
 /*悼词-删除*/
 function del(id){

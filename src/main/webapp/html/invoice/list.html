@@ -11,7 +11,7 @@
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 基础数据维护 <span class="c-gray en">&gt;</span><span id='head'>发票管理</span><a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container" style='margin-top: -20px;'>
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="test_add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> <span id='addButton'>添加发票</span></a></span></div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> <span id='addButton'>添加发票</span></a></span></div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
@@ -21,7 +21,6 @@
 				<th width="40">终止编号</th>
 				<th width="90">当前编号</th>
 				<th width="90">领用日期</th>
-				<th width="90">当前状态</th>
 				<th width="90">备注</th>
 				<th width="100">操作</th>
 			</tr>
@@ -32,10 +31,11 @@
 				<td>测试学生们第一单元掌握情况</td>
 				<td>2014-06-11</td>
                 <td>tony-frank</td>
+				<td>tony-frank</td>
+				<td>tony-frank</td>
                 <td>
-                    <a title="下载" href="javascript:;" onclick="test_edit()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe640;</i></a>
-                    <a title="编辑" href="javascript:;" onclick="test_edit()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
-                    <a title="删除" href="javascript:;" onclick="test_del(this)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    <a title="编辑" href="javascript:;" onclick="edit()" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;" onclick="add(this)" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
                 </td>
             </tr>
 		</tbody>
@@ -55,14 +55,12 @@ $(function(){
 		  {"orderable":false,"aTargets":[4]}// 制定列不参与排序
 		]
 	});
-
 	loadList();
-	
 });
-/*试卷-列表*/
+
 function loadList() {
-	handleAjax('testdoc.do?method=getData').done(function(result){
-		var data = result.data;
+	handleAjax('invoice/list?currentPage=1&pageSize=100').done(function(result){
+		var data = result;
 		if (data == null) {
 			$('tbody').html('暂无数据');
 			return;
@@ -71,14 +69,16 @@ function loadList() {
 		for (var i=0; i<data.length; i++) {
 			str += 
 				'<tr class="text-c">' +
-					'<th>' + data[i].testDocName + '</th>' +
-					'<td>' + data[i].testDocDescription + '</td>' +
-					'<td>' + getDate(data[i].createTime) + '</td>' +
-					'<td>' + data[i].realname + '</td>' +
+					'<th>' + (data[i].type == 0 ? '财政发票' : '税务发票') + '</th>' +
+					'<td>' + data[i].startCode + '</td>' +
+                	'<td>' + data[i].endCode + '</td>' +
+                	'<td>' + data[i].current + '</td>' +
+					'<td>' + getDate(data[i].useDate) + '</td>' +
+					'<td>' + data[i].remark + '</td>' +
 					'<td class="td-manage">' +
-						'<a title="下载" download="' + data[i].testDocPath.split('*')[1].split('.')[0] + '" href="/learningResources/upload/' + data[i].testDocPath + '" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe640;</i></a>' +
-						'<a title="编辑" href="javascript:;" onclick="test_edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
-						'<a title="删除" href="javascript:;" onclick="test_del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
+						'<a title="编辑" href="javascript:;" onclick="edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
+						'<a title="删除" href="javascript:;" onclick="del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
+                		'<a title="查看" href="javascript:;" onclick="view('+data[i].id +')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe709;</i></a>'+
 					'</td>' +
 				'</tr>';
 		};
@@ -87,29 +87,37 @@ function loadList() {
 		alert('error');
 	});
 }
-/*试卷-添加*/
-function test_add(){
-	layer_show('添加试卷', 'test-add.html', '600', '500');
+function add(){
+    layer_show('添加发票', 'add.html', '600', '560');
 }
-/*试卷-编辑*/
-function test_edit(id){
-	layer_show('编辑试卷', 'test-modify.html?id=' + id, '600', '400');
+
+function edit(id){
+	layer_show('修改发票', 'edit.html?id=' + id, '600', '400');
 }
-/*试卷-删除*/
-function test_del(id){
-	layer.confirm('确认要删除改该试卷吗？',function(index){
-		handleAjax('testdoc.do?method=delete&id=' + id).done(function(result){
-			if (result.status) {
-				layer.msg('已删除!', {icon:1,time:1000}, function(){
-					window.location.reload();
-				});
-			} else {
-				layer.msg(result.msg, {icon:1,time:1000});
-			}
-		}).fail(function(xhr, error){
-			alert('error');
-		});
-	});
+function view(id) {
+    layer_show('查看', 'view.html?id=' + id, '600', '400');
+}
+function del(id){
+    layer.confirm('确认要删除改该发票吗？',function(index){
+        $.ajax({
+            type: 'post',
+            url: '/frame/invoice/delete?id=' + id,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result==1) {
+                    layer.msg('已删除!', {icon:1,time:1000}, function(){
+                        window.location.reload();
+                    });
+                } else {
+                    layer.msg(result.msg, {icon:1,time:1000});
+                }
+            },
+            error: function () {
+                alert('error')
+            }
+        })
+    });
 }
 </script> 
 </body>

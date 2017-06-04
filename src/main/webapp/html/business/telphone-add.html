@@ -153,7 +153,6 @@ function add(userId) {
         pickUpAddress: $('#pickUpAddress').val(),
         note:$('#note').val()
 	};
-	alert(JSON.stringify(params));
 	console.info(params)
 	$.ajax({
         type: 'post',
@@ -162,7 +161,6 @@ function add(userId) {
         contentType: 'application/json',
         data:JSON.stringify(params),
         success: function(result) {
-			alert(result);
             if(result==1){
 				layer.msg('添加成功!', {icon:1,time:1000}, function(){
 					refresh();

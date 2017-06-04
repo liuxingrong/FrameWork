@@ -7,6 +7,8 @@
 	<script src="/frame/static/common/header.js"></script>
 	<script src="/frame/static/common/utils.js"></script>
 	<script src="/frame/static/common/validateUser.js"></script>
+	<link href="/frame/lib/My97DatePicker/4.8/skin/WdatePicker.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <article class="page-container">
@@ -40,8 +42,8 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>告别时段：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'datemin\')}' })" id="startTime" class="input-text Wdate" style="width:180px;">
-				<input type="text" onfocus="WdatePicker({ dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'datemin\')}' })" id="endTime" class="input-text Wdate" style="width:180px;">
+				<input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="startTime" class="input-text Wdate" style="width:180px;">
+				<input type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" id="endTime" class="input-text Wdate" style="width:180px;">
 			</div>
 		</div>
 
@@ -64,6 +66,8 @@
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
 <script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="/frame/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+
 <script type="text/javascript">
 	var id = getUrlParam('id');
 	loadPage(id);
@@ -72,8 +76,9 @@
 			$('#number').val(data.number),
 			$('#fname').val(data.fname),
 			$('#format').val(data.format),
-			$('#startTime').val(data.startTime),
-			$('#endTime').val(data.content)
+			$('#startTime').val(getDate(data.startTime)),
+			$('#endTime').val(getDate(data.endTime))
+            $('#price').val(data.price)
 		}).fail(function(xhr, error){
 			alert('error')
 		})
@@ -106,7 +111,7 @@
 			focusCleanup:true,
 			success:"valid",
 			submitHandler:function(form){
-				add();
+                edit(id);
 			}
 		});
 	});
@@ -117,8 +122,8 @@
 			number: $('#number').val(),
 			fname: $('#fname').val(),
 			format: $('#format').val(),
-			startTime: $('#startTime').val(),
-			endTime: $('#endTime').val()
+			startTime: new Date($('#startTime').val()),
+			endTime: new Date($('#endTime').val())
 		}
 		$.ajax({
 			type: 'post',

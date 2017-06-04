@@ -10,7 +10,7 @@
 </head>
 <body>
 <article class="page-container">
-	<form action="" method="post" class="form form-horizontal" id="edit>
+	<form action="" method="post" class="form form-horizontal" id="edit">
 	<div class="row cl">
 	<label class="form-label col-xs-4 col-sm-3" style="text-align: right;"><span class="c-red">*</span>商品编号：</label>
 	<div class="formControls col-xs-8 col-sm-9">
@@ -59,7 +59,8 @@
 <script type="text/javascript">
 
 	$(function(){
-		var type = getUrlParam('type');
+        var id = getUrlParam('id');
+        loadPage(id);
 		$('.skin-minimal input').iCheck({
 			checkboxClass: 'icheckbox-blue',
 			radioClass: 'iradio-blue',
@@ -85,27 +86,54 @@
 			focusCleanup:true,
 			success:"valid",
 			submitHandler:function(form){
-				add();
+                edit(id);
 			}
 		});
 	});
 
-	function add(){
+    function loadPage(id) {
+        $.ajax({
+            type: 'post',
+            url: '/frame/refrigerated/find?id='+id,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                $('#number').val(result.number);
+                $('#type').val(result.type);
+                $('#byname').val(result.byname);
+                $('#price').val(result.price);
+            },
+            error: function () {
+                alert('error')
+            }
+        }) ;
+    }
+
+	function edit(id){
 		var params = {
+		    id:id,
 			number: $('#number').val(),
-			type: $('#number').val(),
+			type: $('#type').val(),
 			byname: $('#byname').val(),
 			price: $('#price').val()
 		}
-		handleAjax('userManage.do?method=addUser', params).done(function(result){
-			if (result.status) {
-				layer.msg('修改成功!', {icon:1,time:1000}, function(){
-					refresh();
-				});
-			}
-		}).fail(function(xhr, error){
-			alert('error')
-		});
+        $.ajax({
+            type: 'post',
+            url: '/frame/refrigerated/update',
+            dataType: 'json',
+            contentType: 'application/json',
+            data:JSON.stringify(params),
+            success: function(result) {
+                if(result==1){
+                    layer.msg('修改成功!', {icon:1,time:1000}, function(){
+                        refresh();
+                    });
+                }
+            },
+            error: function() {
+                alert('error')
+            }
+        })
 
 	}
 </script>

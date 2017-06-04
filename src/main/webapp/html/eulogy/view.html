@@ -1,0 +1,47 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>修改悼词</title>
+    <script src="/frame/static/common/header.js"></script>
+    <script src="/frame/static/common/utils.js"></script>
+    <script src="/frame/static/common/validateUser.js"></script>
+</head>
+<body>
+<article class="page-container">
+    <form action="" method="post" class="form form-horizontal" id="edit">
+
+        <div class="row cl">
+            <label class="form-label col-xs-3 col-sm-3" style="text-align: right;"><span class="c-red">*</span>悼词：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="" placeholder="" id="content" name="content">
+            </div>
+        </div>
+    </form>
+</article>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/frame/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+
+    function loadPage(id) {
+        handleAjax('eulogy/find?id='+ id).done(function(data) {
+            $('#content').val(data.content)
+        }).fail(function(xhr, error){
+            alert('error')
+        })
+    }
+    $(function(){
+        var id = getUrlParam('id');
+        loadPage(id);
+        $('input').attr("disabled","disabled");
+        $('select').attr("disabled","disabled");
+        $('radio').attr("disabled","disabled");
+    });
+</script>
+
+</body>
+</html>

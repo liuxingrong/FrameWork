@@ -66,8 +66,8 @@
 					$('#type').val(data.type),
 					$('#number').val(data.number),
 					$('#byname').val(data.byname),
-					$('#startTime').val(new Date(data.startTime)),
-					$('#endTime').val(new Date(data.endTime))
+					$('#startTime').val(getDate(data.startTime)),
+					$('#endTime').val(getDate(data.endTime))
 		}).fail(function(xhr, error){
 			alert('error')
 		})

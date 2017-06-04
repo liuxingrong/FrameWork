@@ -42,7 +42,7 @@ $(function(){
 });
 /*冷藏室-列表*/
 function loadList() {
-	handleAjax('mourningHall/list?currentPage=1&pageSize=100').done(function(data){
+	handleAjax('refrigerated/list?currentPage=1&pageSize=100').done(function(data){
 		if (data == null) {
 			$('tbody').html('暂无数据');
 			return;
@@ -52,13 +52,14 @@ function loadList() {
 			str += 
 				'<tr class="text-c">' +
 					'<th>' + data[i].number + '</th>' +
-					'<td>' + data[i].type + '</td>' +
+					'<td>' +(data[i].type == 1? '独立冰柜' : '普通冰柜')  + '</td>' +
 			        '<th>' + data[i].byname + '</th>' +
 					'<td>' + data[i].price + '</td>' +
-				    '<td>' + data[i].status + '</td>' +
+				    '<td>' + (data[i].status == 1? '停用' : '在用') + '</td>' +
 					'<td class="td-manage">' +
-						'<a title="编辑" href="javascript:;" onclick="test_edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
-						'<a title="删除" href="javascript:;" onclick="test_del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
+						'<a title="编辑" href="javascript:;" onclick="edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
+						'<a title="删除" href="javascript:;" onclick="del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
+                		'<a title="查看" href="javascript:;" onclick="view('+data[i].id +')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe709;</i></a>'+
 					'</td>' +
 				'</tr>';
 		};
@@ -72,24 +73,34 @@ function add(){
 	layer_show('添加冷藏室', 'add.html', '600', '500');
 }
 /*冷藏室-编辑*/
-function test_edit(id){
+function edit(id){
 	layer_show('编辑冷藏室', 'edit.html?id=' + id, '600', '400');
 }
+function view(id) {
+    layer_show('查看', 'view.html?id=' + id, '600', '400');
+}
 /*冷藏室-删除*/
-function test_del(id){
-	layer.confirm('确认要删除该冷藏室吗？',function(index){
-		handleAjax('testdoc.do?method=delete&id=' + id).done(function(result){
-			if (result.status) {
-				layer.msg('已删除!', {icon:1,time:1000}, function(){
-					window.location.reload();
-				});
-			} else {
-				layer.msg(result.msg, {icon:1,time:1000});
-			}
-		}).fail(function(xhr, error){
-			alert('error');
-		});
-	});
+function del(id){
+    layer.confirm('确认要删除改该冷藏室吗？',function(index){
+        $.ajax({
+            type: 'post',
+            url: '/frame/refrigerated/delete?id=' + id,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                if (result==1) {
+                    layer.msg('已删除!', {icon:1,time:1000}, function(){
+                        window.location.reload();
+                    });
+                } else {
+                    layer.msg(result.msg, {icon:1,time:1000});
+                }
+            },
+            error: function () {
+                alert('error')
+            }
+        })
+    });
 }
 </script> 
 </body>

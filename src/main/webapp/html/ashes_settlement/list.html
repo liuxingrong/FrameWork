@@ -15,8 +15,8 @@
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
-				<th width="40">骨灰安置处</th>
-				<th width="100">操作</th>
+				<th width="100">骨灰安置处</th>
+				<th width="40">操作</th>
 			</tr>
 		</thead>
 		
@@ -49,7 +49,8 @@ function loadList() {
 					'<td class="td-manage">' +
 						'<a title="编辑" href="javascript:;" onclick="edit(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>' +
 						'<a title="删除" href="javascript:;" onclick="del(' + data[i].id + ')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>' +
-					'</td>' +
+                		'<a title="查看" href="javascript:;" onclick="view('+data[i].id +')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe709;</i></a>'+
+                '</td>' +
 				'</tr>';
 		};
 		$('tbody').html(str);
@@ -64,6 +65,9 @@ function add(){
 /*安置处-编辑*/
 function edit(id){
 	layer_show('编辑安置处', 'edit.html?id=' + id, '600', '400');
+}
+function view(id) {
+    layer_show('查看', 'view.html?id=' + id, '600', '400');
 }
 /*安置处-删除*/
 function del(id){
