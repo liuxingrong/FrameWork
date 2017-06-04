@@ -20,7 +20,8 @@
 
 	<security:http auto-config="true">
 		<security:form-login login-page="/html/login.html"
-			login-processing-url="/login.do" 
+			login-processing-url="/login.do"
+			always-use-default-target="true"
 			default-target-url="/html/index.html"
 		 	authentication-failure-url="/html/login.html?error=true"
 			username-parameter="username"
